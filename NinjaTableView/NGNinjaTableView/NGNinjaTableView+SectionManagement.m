@@ -11,9 +11,11 @@
 #import <objc/runtime.h>
 
 void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
+void *hiddenSectionsIndexSetKey = &hiddenSectionsIndexSetKey;
 
 @interface NGNinjaTableView()
 @property (nonatomic, readwrite) NSMutableIndexSet * foldedSectionsIndexSet;
+@property (nonatomic, readwrite) NSMutableIndexSet * hiddenSectionsIndexSet;
 @end
 
 @implementation NGNinjaTableView (SectionManagement)
@@ -52,6 +54,38 @@ void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
     }
 }
 
+- (void)hideSections:(NSIndexSet *)indices animated:(BOOL)animated
+{
+    [self.hiddenSectionsIndexSet addIndexes:indices];
+    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+}
+
+- (void)hideSection:(NSInteger)section animated:(BOOL)animated
+{
+    [self hideSections:[NSIndexSet indexSetWithIndex:section] animated:animated];
+}
+
+- (void)showSections:(NSIndexSet *)indices animated:(BOOL)animated
+{
+    [self.hiddenSectionsIndexSet removeIndexes:indices];
+    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+}
+
+- (void)showSection:(NSInteger)section animated:(BOOL)animated
+{
+    [self showSections:[NSIndexSet indexSetWithIndex:section] animated:animated];
+}
+
+- (void)toggleVisibilityOnSection:(NSInteger)section
+{
+    if ([self isSectionHidden:section]){
+        [self showSection:section animated:YES];
+    }
+    else {
+        [self hideSection:section animated:YES];
+    }
+}
+
 #pragma mark - Interface Properties
 
 - (NSMutableIndexSet *)foldedSectionsIndexSet
@@ -64,11 +98,31 @@ void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
     return indexSet;
 }
 
+- (NSMutableIndexSet *)hiddenSectionsIndexSet
+{
+    NSMutableIndexSet * indexSet = objc_getAssociatedObject(self, hiddenSectionsIndexSetKey);
+    if (indexSet == nil){
+        objc_setAssociatedObject(self, hiddenSectionsIndexSetKey, [NSMutableIndexSet indexSet], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        indexSet = [NSMutableIndexSet indexSet];
+    }
+    return indexSet;
+}
+
 #pragma mark - Private Methods
 
 - (BOOL)isSectionFolded:(NSInteger)section
 {
     return [self.foldedSectionsIndexSet containsIndex:section];
+}
+
+- (BOOL)isSectionHidden:(NSInteger)section
+{
+    return [self.hiddenSectionsIndexSet containsIndex:section];
+}
+
+- (BOOL)isSectionContentVisible:(NSInteger)section
+{
+    return !([self isSectionFolded:section] || [self isSectionHidden:section]);
 }
 
 @end
@@ -80,11 +134,53 @@ void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self.ninjaTableView.foldedSectionsIndexSet containsIndex:section] == YES) {
+    if ([self.ninjaTableView isSectionContentVisible:section] == NO) {
         return 0;
     }
     
     return [self.tableViewDataSource tableView:tableView numberOfRowsInSection:section];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)] == NO) {
+        [NSException raise:NSObjectNotAvailableException format:@"To use %@ you need to implement this method", NSStringFromSelector(_cmd)];
+        return nil;
+    }
+    
+    if ([self.ninjaTableView isSectionHidden:section] == YES) {
+        return nil;
+    }
+    
+    return [self.tableViewDelegate tableView:tableView viewForHeaderInSection:section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)] == NO){
+        [NSException raise:NSObjectNotAvailableException format:@"To use %@ you need to implement this method", NSStringFromSelector(_cmd)];
+        return 0;
+    }
+    
+    if ([self.ninjaTableView isSectionHidden:section] == YES) {
+        return 0.f;
+    }
+    
+    return [self.tableViewDelegate tableView:tableView heightForHeaderInSection:section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)] == NO){
+        [NSException raise:NSObjectNotAvailableException format:@"To use %@ you need to implement this method", NSStringFromSelector(_cmd)];
+        return 0;
+    }
+    
+    if ([self.ninjaTableView isSectionHidden:section] == YES) {
+        return 0.f;
+    }
+    
+    return [self.tableViewDelegate tableView:tableView heightForFooterInSection:section];
 }
 
 @end

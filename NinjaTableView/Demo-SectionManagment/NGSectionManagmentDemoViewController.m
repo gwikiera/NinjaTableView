@@ -28,9 +28,15 @@
     return 3;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 50.f;
+    return 50;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -54,12 +60,6 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"cell %d in section %d", indexPath.row, indexPath.section];
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NGNinjaTableView * tv = (NGNinjaTableView *)tableView;
-    [tv toggleFoldingOnSection:indexPath.section];
 }
 
 #pragma mark - Private Methods
