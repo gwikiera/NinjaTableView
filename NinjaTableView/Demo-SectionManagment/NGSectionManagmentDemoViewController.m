@@ -28,9 +28,19 @@
     return 3;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return [NSString stringWithFormat:@"Section %d header", section];
+    return 50.f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIButton * btn = [[UIButton alloc] init];
+    [btn setTitle:[NSString stringWithFormat:@"Section %d header", section] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(didSelectHeaderView:) forControlEvents:UIControlEventTouchUpInside];
+    btn.tag = section;
+    return btn;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -38,10 +48,10 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"cell %d in section %d", indexPath.row, indexPath.section];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"cell %d in section %d", indexPath.row, indexPath.section];
     
     return cell;
 }
@@ -50,6 +60,14 @@
 {
     NGNinjaTableView * tv = (NGNinjaTableView *)tableView;
     [tv toggleFoldingOnSection:indexPath.section];
+}
+
+#pragma mark - Private Methods
+
+- (void)didSelectHeaderView:(UIButton *)sender
+{
+    NGNinjaTableView * tv = (NGNinjaTableView *)self.tableView;
+    [tv toggleFoldingOnSection:sender.tag];
 }
 
 @end
