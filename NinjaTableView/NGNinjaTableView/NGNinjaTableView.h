@@ -22,7 +22,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @protocol NGNinjaTableViewCellAppearing <NSObject>
 
 /**
@@ -64,4 +63,9 @@
  */
 - (id)dataForIndexPath:(NSIndexPath *)indexPath;
 
+@end
+
+
+// other required defines
+@interface NGNinjaTableViewDelegateAndDataSourceSurrogate: NSObject
 @end
