@@ -92,8 +92,8 @@ void *hiddenSectionsIndexSetKey = &hiddenSectionsIndexSetKey;
 {
     NSMutableIndexSet * indexSet = objc_getAssociatedObject(self, foldedSectionsIndexSetKey);
     if (indexSet == nil){
-        objc_setAssociatedObject(self, foldedSectionsIndexSetKey, [NSMutableIndexSet indexSet], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         indexSet = [NSMutableIndexSet indexSet];
+        objc_setAssociatedObject(self, foldedSectionsIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return indexSet;
 }
@@ -102,8 +102,8 @@ void *hiddenSectionsIndexSetKey = &hiddenSectionsIndexSetKey;
 {
     NSMutableIndexSet * indexSet = objc_getAssociatedObject(self, hiddenSectionsIndexSetKey);
     if (indexSet == nil){
-        objc_setAssociatedObject(self, hiddenSectionsIndexSetKey, [NSMutableIndexSet indexSet], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         indexSet = [NSMutableIndexSet indexSet];
+        objc_setAssociatedObject(self, hiddenSectionsIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return indexSet;
 }
