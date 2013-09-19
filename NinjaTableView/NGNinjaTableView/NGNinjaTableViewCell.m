@@ -36,8 +36,13 @@
 
 - (id)delegate
 {
-    NSParameterAssert([self.superview isKindOfClass:[NGNinjaTableView class]] == YES);
-    return [self.superview valueForKey:@"delegate"];
+    //NSParameterAssert([self.superview isKindOfClass:[NGNinjaTableView class]] == YES);
+    UIView * tableView = [self superview];
+    while (tableView != nil && [tableView isKindOfClass:UITableView.class] == NO) {
+        tableView = [tableView superview];
+    }
+    
+    return [tableView valueForKey:@"delegate"];
 }
 
 - (NGNinjaTableView *)tableView
