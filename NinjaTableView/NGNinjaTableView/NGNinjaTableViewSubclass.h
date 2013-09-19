@@ -7,7 +7,7 @@
 //
 
 
-@interface NGNinjaTableViewDelegateAndDataSourceSurrogate(ForSubclassingEyesOnly)
+@interface NGNinjaTableViewDelegateAndDataSourceSurrogate(ForSubclassingEyesOnly)<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) NSObject<UITableViewDelegate>* tableViewDelegate;
 @property (weak, nonatomic) NSObject<UITableViewDataSource>* tableViewDataSource;

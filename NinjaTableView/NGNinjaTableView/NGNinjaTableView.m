@@ -139,6 +139,12 @@
     [super setDelegate:self.delegateAndDataSourceSurrogate];
 }
 
+- (void)setDataSource:(id<UITableViewDataSource>)dataSource
+{
+    self.delegateAndDataSourceSurrogate.tableViewDataSource = dataSource;
+    [super setDataSource:self.delegateAndDataSourceSurrogate];
+}
+
 #pragma mark - Private Properties
 
 - (NSMutableDictionary *)cellData

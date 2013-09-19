@@ -27,6 +27,7 @@
 		2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9BECD167FAC3A008C1E11 /* NGButtonCellDemoViewController.m */; };
 		2EE9BED0167FAC3A008C1E11 /* NGButtonCellDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EE9BECE167FAC3A008C1E11 /* NGButtonCellDemoViewController.xib */; };
 		2EE9BED3167FACB0008C1E11 /* NGButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9BED2167FACB0008C1E11 /* NGButtonCell.m */; };
+		AF1F16D417EB1988000DD38D /* NGNinjaTableView+SectionManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1F16D317EB1988000DD38D /* NGNinjaTableView+SectionManagement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,8 @@
 		2EE9BED1167FACB0008C1E11 /* NGButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGButtonCell.h; sourceTree = "<group>"; };
 		2EE9BED2167FACB0008C1E11 /* NGButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGButtonCell.m; sourceTree = "<group>"; };
 		AF1F16D117EB0A04000DD38D /* NGNinjaTableViewSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableViewSubclass.h; sourceTree = "<group>"; };
+		AF1F16D217EB1988000DD38D /* NGNinjaTableView+SectionManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NGNinjaTableView+SectionManagement.h"; sourceTree = "<group>"; };
+		AF1F16D317EB1988000DD38D /* NGNinjaTableView+SectionManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NGNinjaTableView+SectionManagement.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,8 @@
 				2EE9BEBC167FAACD008C1E11 /* NGNinjaTableViewCell.m */,
 				2EE9BEBD167FAACD008C1E11 /* NGPulseTableViewCell.h */,
 				2EE9BEBE167FAACD008C1E11 /* NGPulseTableViewCell.m */,
+				AF1F16D217EB1988000DD38D /* NGNinjaTableView+SectionManagement.h */,
+				AF1F16D317EB1988000DD38D /* NGNinjaTableView+SectionManagement.m */,
 			);
 			path = NGNinjaTableView;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 				2EE9BEA0167FAA90008C1E11 /* NGAppDelegate.m in Sources */,
 				2EE9BEA9167FAA90008C1E11 /* NGViewController.m in Sources */,
 				2EE9BEC0167FAACD008C1E11 /* NGNinjaTableView.m in Sources */,
+				AF1F16D417EB1988000DD38D /* NGNinjaTableView+SectionManagement.m in Sources */,
 				2EE9BEC1167FAACD008C1E11 /* NGNinjaTableViewCell.m in Sources */,
 				2EE9BEC2167FAACD008C1E11 /* NGPulseTableViewCell.m in Sources */,
 				2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */,
