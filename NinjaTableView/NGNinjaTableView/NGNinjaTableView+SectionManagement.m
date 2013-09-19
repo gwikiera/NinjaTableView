@@ -23,7 +23,7 @@ void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
 - (void)foldSections:(NSIndexSet *)indices animated:(BOOL)animated
 {
     [self.foldedSectionsIndexSet addIndexes:indices];
-    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationTop : UITableViewRowAnimationNone];
+    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
 }
 
 - (void)foldSection:(NSInteger)section animated:(BOOL)animated
@@ -34,7 +34,7 @@ void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
 - (void)unfoldSections:(NSIndexSet *)indices animated:(BOOL)animated
 {
     [self.foldedSectionsIndexSet removeIndexes:indices];
-    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationBottom : UITableViewRowAnimationNone];
+    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
 }
 
 - (void)unfoldSection:(NSInteger)section animated:(BOOL)animated
@@ -85,24 +85,6 @@ void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
     }
     
     return [self.tableViewDataSource tableView:tableView numberOfRowsInSection:section];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if ([self.ninjaTableView.foldedSectionsIndexSet containsIndex:section] == YES || [self.tableViewDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)] == NO) {
-        return 0.f;
-    }
-    
-    return [self.tableViewDelegate tableView:tableView heightForHeaderInSection:section];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if ([self.ninjaTableView.foldedSectionsIndexSet containsIndex:section] == YES || [self.tableViewDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)] == NO) {
-        return 0.f;
-    }
-    
-    return [self.tableViewDelegate tableView:tableView heightForFooterInSection:section];
 }
 
 @end
