@@ -9,6 +9,7 @@
 #import "NGViewController.h"
 #import "NGButtonCellDemoViewController.h"
 #import "NGPulseCellDemoViewController.h"
+#import "NGCollectionTableViewCellDemoViewController.h"
 #import "NGSectionManagmentDemoViewController.h"
 
 @interface NGViewController ()
@@ -40,6 +41,13 @@
     NGPulseCellDemoViewController * controller = [[NGPulseCellDemoViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
+
+- (IBAction)collectionCellDemoTapped:(id)sender
+{
+    NGCollectionTableViewCellDemoViewController * controller = [[NGCollectionTableViewCellDemoViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 
 - (IBAction)sectionManagmentDemoTapped:(id)sender
 {
