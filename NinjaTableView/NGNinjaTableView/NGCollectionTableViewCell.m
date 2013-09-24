@@ -31,6 +31,18 @@ static NSString * const kIndexPathsForSelectedItemsKey = @"indexPathsForSelected
     NSDictionary * views = @{@"collectionView": self.collectionView};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[collectionView]|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[collectionView]|" options:0 metrics:nil views:views]];
+    
+    /** Warning:
+     *  Selecting items before collection view calls datasource, is fragile. Client must not select index paths which are out of bounds.
+     */
+    
+    if ([self.delegate respondsToSelector:@selector(collectionTableViewCell:preselectedItemIndexPathsForCollectionView:)] == NO)
+        return;
+    
+    NSArray * indexPaths = [self.delegate collectionTableViewCell:self preselectedItemIndexPathsForCollectionView:self.collectionView];
+    for (NSIndexPath * indexPath in indexPaths) {
+        [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    }
 }
 
 - (void)prepareForReuse

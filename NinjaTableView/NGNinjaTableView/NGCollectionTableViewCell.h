@@ -26,6 +26,7 @@
 
 @optional
 
+- (NSArray *)collectionTableViewCell:(NGCollectionTableViewCell *)collectionTableViewCell preselectedItemIndexPathsForCollectionView:(UICollectionView *)collectionView;
 - (void)collectionTableViewCell:(NGCollectionTableViewCell *)collectionTableViewCell collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
