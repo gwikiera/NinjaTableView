@@ -116,6 +116,55 @@
 
 @implementation NGNinjaTableView
 
+#pragma mark - Overriden
+
+- (id)init
+{
+    self = [super init];
+    if (self){
+        [self initialize];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self){
+        [self initialize];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self){
+        [self initialize];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
+{
+    self = [super initWithFrame:frame style:style];
+    if (self) {
+        [self initialize];
+    }
+}
+
+- (void)setDelegate:(id<UITableViewDelegate>)delegate
+{
+    self.delegateAndDataSourceSurrogate.tableViewDelegate = delegate;
+    [super setDelegate:self.delegateAndDataSourceSurrogate];
+}
+
+- (void)setDataSource:(id<UITableViewDataSource>)dataSource
+{
+    self.delegateAndDataSourceSurrogate.tableViewDataSource = dataSource;
+    [super setDataSource:self.delegateAndDataSourceSurrogate];
+}
+
 #pragma mark - Instance Methods
 
 - (void)setData:(id)data forIndexPath:(NSIndexPath *)indexPath
@@ -131,18 +180,12 @@
     return [self.cellData objectForKey:indexPath];
 }
 
-#pragma mark - Overriden
+#pragma mark - Private Methods
 
-- (void)setDelegate:(id<UITableViewDelegate>)delegate
+- (void)initialize
 {
-    self.delegateAndDataSourceSurrogate.tableViewDelegate = delegate;
-    [super setDelegate:self.delegateAndDataSourceSurrogate];
-}
-
-- (void)setDataSource:(id<UITableViewDataSource>)dataSource
-{
-    self.delegateAndDataSourceSurrogate.tableViewDataSource = dataSource;
-    [super setDataSource:self.delegateAndDataSourceSurrogate];
+    _delegateAndDataSourceSurrogate = [[NGNinjaTableViewDelegateAndDataSourceSurrogate alloc] init];
+    _delegateAndDataSourceSurrogate.ninjaTableView = self;
 }
 
 #pragma mark - Private Properties
@@ -153,15 +196,6 @@
         _cellData = [NSMutableDictionary dictionary];
     }
     return _cellData;
-}
-
-- (NGNinjaTableViewDelegateAndDataSourceSurrogate *)delegateAndDataSourceSurrogate
-{
-    if (_delegateAndDataSourceSurrogate == nil) {
-        _delegateAndDataSourceSurrogate = [[NGNinjaTableViewDelegateAndDataSourceSurrogate alloc] init];
-        _delegateAndDataSourceSurrogate.ninjaTableView = self;
-    }
-    return _delegateAndDataSourceSurrogate;
 }
 
 @end
