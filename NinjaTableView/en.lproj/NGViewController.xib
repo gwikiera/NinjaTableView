@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                    <rect key="frame" x="20" y="193" width="280" height="30"/>
+                    <rect key="frame" x="20" y="212" width="280" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button Cell Demo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -26,7 +26,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21">
-                    <rect key="frame" x="20" y="231" width="280" height="30"/>
+                    <rect key="frame" x="20" y="250" width="280" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Pulse Cell Demo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,8 +35,18 @@
                         <action selector="pulseCellDemoTapped:" destination="-1" eventType="touchUpInside" id="29"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dep-MH-iwV">
+                    <rect key="frame" x="20" y="288" width="280" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Collection Cell Demo">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="collectionCellDemoTapped:" destination="-1" eventType="touchUpInside" id="b8h-kB-aiL"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Sk-QX-MbF">
-                    <rect key="frame" x="20" y="269" width="280" height="30"/>
+                    <rect key="frame" x="20" y="326" width="280" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Section Managment Demo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,15 +58,18 @@
             </subviews>
             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="0Sk-QX-MbF" firstAttribute="top" secondItem="21" secondAttribute="bottom" constant="8" symbolic="YES" id="1G9-4e-IEu"/>
+                <constraint firstItem="dep-MH-iwV" firstAttribute="top" secondItem="21" secondAttribute="bottom" constant="8" symbolic="YES" id="05T-Ta-uzJ"/>
                 <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" symbolic="YES" id="6eG-tT-C76"/>
                 <constraint firstItem="0Sk-QX-MbF" firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="B4w-iy-uJJ"/>
                 <constraint firstItem="0Sk-QX-MbF" firstAttribute="leading" secondItem="21" secondAttribute="leading" id="Bx7-c5-aw4"/>
+                <constraint firstItem="dep-MH-iwV" firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="EaU-Uc-eFY"/>
                 <constraint firstItem="21" firstAttribute="leading" secondItem="8" secondAttribute="leading" id="IaN-o4-zsV"/>
                 <constraint firstItem="8" firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="JCK-nj-zew"/>
                 <constraint firstItem="21" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="8" symbolic="YES" id="dIm-YX-0JU"/>
                 <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="hsL-xQ-Xuz"/>
-                <constraint firstItem="0Sk-QX-MbF" firstAttribute="centerY" secondItem="6" secondAttribute="centerY" id="vph-9Q-Mko"/>
+                <constraint firstItem="dep-MH-iwV" firstAttribute="leading" secondItem="21" secondAttribute="leading" id="lhO-Gh-USS"/>
+                <constraint firstItem="0Sk-QX-MbF" firstAttribute="centerY" secondItem="6" secondAttribute="centerY" constant="57" id="vph-9Q-Mko"/>
+                <constraint firstItem="0Sk-QX-MbF" firstAttribute="top" secondItem="dep-MH-iwV" secondAttribute="bottom" constant="8" symbolic="YES" id="wsN-LF-vng"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

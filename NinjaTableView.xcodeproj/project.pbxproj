@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2E0DE1C01761E4EF0003B217 /* NGResponderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DE1BF1761E4EF0003B217 /* NGResponderTableViewCell.m */; };
+		2E42799A17F082A000A532AE /* NGCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E42799917F082A000A532AE /* NGCollectionTableViewCell.m */; };
+		2E42799F17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E42799D17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m */; };
+		2E4279A017F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E42799E17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib */; };
 		2E6E92B016998F680049D832 /* NGPulseCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6E92AE16998F680049D832 /* NGPulseCellDemoViewController.m */; };
 		2E6E92B116998F680049D832 /* NGPulseCellDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E6E92AF16998F680049D832 /* NGPulseCellDemoViewController.xib */; };
 		2EE9BE90167FAA90008C1E11 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE9BE8F167FAA90008C1E11 /* UIKit.framework */; };
@@ -35,6 +38,11 @@
 /* Begin PBXFileReference section */
 		2E0DE1BE1761E4EF0003B217 /* NGResponderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGResponderTableViewCell.h; sourceTree = "<group>"; };
 		2E0DE1BF1761E4EF0003B217 /* NGResponderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGResponderTableViewCell.m; sourceTree = "<group>"; };
+		2E42799817F082A000A532AE /* NGCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGCollectionTableViewCell.h; sourceTree = "<group>"; };
+		2E42799917F082A000A532AE /* NGCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGCollectionTableViewCell.m; sourceTree = "<group>"; };
+		2E42799C17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGCollectionTableViewCellDemoViewController.h; sourceTree = "<group>"; };
+		2E42799D17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGCollectionTableViewCellDemoViewController.m; sourceTree = "<group>"; };
+		2E42799E17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NGCollectionTableViewCellDemoViewController.xib; sourceTree = "<group>"; };
 		2E6E92AD16998F680049D832 /* NGPulseCellDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGPulseCellDemoViewController.h; sourceTree = "<group>"; };
 		2E6E92AE16998F680049D832 /* NGPulseCellDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGPulseCellDemoViewController.m; sourceTree = "<group>"; };
 		2E6E92AF16998F680049D832 /* NGPulseCellDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NGPulseCellDemoViewController.xib; sourceTree = "<group>"; };
@@ -87,6 +95,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E42799B17F0830900A532AE /* Demo-CollevtionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2E42799C17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.h */,
+				2E42799D17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m */,
+				2E42799E17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib */,
+			);
+			path = "Demo-CollevtionViewCell";
+			sourceTree = "<group>";
+		};
 		2E6E92A516998E010049D832 /* Demo-PulseCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +149,7 @@
 				2EE9BECB167FAC1C008C1E11 /* Demo-ButtonCell */,
 				2E6E92A516998E010049D832 /* Demo-PulseCell */,
 				AF1F16D517EB2D85000DD38D /* Demo-SectionManagment */,
+				2E42799B17F0830900A532AE /* Demo-CollevtionViewCell */,
 				2EE9BE9E167FAA90008C1E11 /* NGAppDelegate.h */,
 				2EE9BE9F167FAA90008C1E11 /* NGAppDelegate.m */,
 				2EE9BEA7167FAA90008C1E11 /* NGViewController.h */,
@@ -169,6 +188,8 @@
 				2EE9BEBE167FAACD008C1E11 /* NGPulseTableViewCell.m */,
 				AF1F16D217EB1988000DD38D /* NGNinjaTableView+SectionManagement.h */,
 				AF1F16D317EB1988000DD38D /* NGNinjaTableView+SectionManagement.m */,
+				2E42799817F082A000A532AE /* NGCollectionTableViewCell.h */,
+				2E42799917F082A000A532AE /* NGCollectionTableViewCell.m */,
 			);
 			path = NGNinjaTableView;
 			sourceTree = "<group>";
@@ -247,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E4279A017F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib in Resources */,
 				2EE9BE9A167FAA90008C1E11 /* InfoPlist.strings in Resources */,
 				2EE9BEA2167FAA90008C1E11 /* Default.png in Resources */,
 				2EE9BEA4167FAA90008C1E11 /* Default@2x.png in Resources */,
@@ -265,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E42799F17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m in Sources */,
 				2EE9BE9C167FAA90008C1E11 /* main.m in Sources */,
 				2EE9BEA0167FAA90008C1E11 /* NGAppDelegate.m in Sources */,
 				2EE9BEA9167FAA90008C1E11 /* NGViewController.m in Sources */,
@@ -272,6 +295,7 @@
 				AF1F16D417EB1988000DD38D /* NGNinjaTableView+SectionManagement.m in Sources */,
 				2EE9BEC1167FAACD008C1E11 /* NGNinjaTableViewCell.m in Sources */,
 				2EE9BEC2167FAACD008C1E11 /* NGPulseTableViewCell.m in Sources */,
+				2E42799A17F082A000A532AE /* NGCollectionTableViewCell.m in Sources */,
 				AF1F16D917EB2DB7000DD38D /* NGSectionManagmentDemoViewController.m in Sources */,
 				2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */,
 				2EE9BED3167FACB0008C1E11 /* NGButtonCell.m in Sources */,
