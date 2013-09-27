@@ -117,10 +117,28 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
 }
 
-- (void)hideSections:(NSIndexSet *)indices animated:(BOOL)animated
+- (void)hideSections:(NSIndexSet *)sections animated:(BOOL)animated
 {
-    [self.hiddenSectionsIndexSet addIndexes:indices];
-    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    NSIndexSet * indices = sections;
+    if ([self.delegate respondsToSelector:@selector(tableView:willStartHidingSections:animated:)] == YES) {
+        indices = [(id)self.delegate tableView:self willStartHidingSections:sections animated:animated];
+    }
+    if (indices.count == 0) return;
+
+    
+    [CATransaction performWithBlock:^{
+        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    } beforeBegin:^{
+        [self.hiddenSectionsIndexSet addIndexes:indices];
+    } afterCommit:^{
+        if ([self.delegate respondsToSelector:@selector(tableView:didStartHidingSections:animated:)] == YES) {
+            [(id)self.delegate tableView:self didStartHidingSections:indices animated:animated];
+        }
+    } completion:^{
+        if ([self.delegate respondsToSelector:@selector(tableView:didFinishHidingSections:animated:)] == YES) {
+            [(id)self.delegate tableView:self didStartHidingSections:indices animated:animated];
+        }
+    }];
 }
 
 - (void)hideSection:(NSInteger)section animated:(BOOL)animated
@@ -128,10 +146,27 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     [self hideSections:[NSIndexSet indexSetWithIndex:section] animated:animated];
 }
 
-- (void)showSections:(NSIndexSet *)indices animated:(BOOL)animated
+- (void)showSections:(NSIndexSet *)sections animated:(BOOL)animated
 {
-    [self.hiddenSectionsIndexSet removeIndexes:indices];
-    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    NSIndexSet * indices = sections;
+    if ([self.delegate respondsToSelector:@selector(tableView:willStartShowingSections:animated:)] == YES) {
+        indices = [(id)self.delegate tableView:self willStartShowingSections:indices animated:animated];
+    }
+    if (indices.count == 0) return;
+    
+    [CATransaction performWithBlock:^{
+        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    } beforeBegin:^{
+        [self.hiddenSectionsIndexSet removeIndexes:indices];
+    } afterCommit:^{
+        if ([self.delegate respondsToSelector:@selector(tableView:didStartShowingSections:animated:)] == YES) {
+            [(id)self.delegate tableView:self didStartShowingSections:indices animated:animated];
+        }
+    } completion:^{
+        if ([self.delegate respondsToSelector:@selector(tableView:didFinishShowingSections:animated:)] == YES) {
+            [(id)self.delegate tableView:self didFinishShowingSections:indices animated:animated];
+        }
+    }];
 }
 
 - (void)showSection:(NSInteger)section animated:(BOOL)animated

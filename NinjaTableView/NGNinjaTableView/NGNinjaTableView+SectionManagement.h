@@ -12,6 +12,7 @@
 @optional
 // folding / unfolding delegate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSectionWhenFolded:(NSInteger)section;  // 0 by default
+
 - (NSIndexSet *)tableView:(UITableView *)tableView willStartFoldingSections:(NSIndexSet *)sections animated:(BOOL)animated;
 - (void)tableView:(UITableView *)tableView didStartFoldingSections:(NSIndexSet *)sections animated:(BOOL)animated;
 - (void)tableView:(UITableView *)tableView didFinishFoldingSections:(NSIndexSet *)sections animated:(BOOL)animated;
@@ -20,7 +21,12 @@
 - (void)tableView:(UITableView *)tableView didFinishUnfoldingSections:(NSIndexSet *)sections animated:(BOOL)animated;
 
 // hiding / showing delegate methods
-// TODO
+- (NSIndexSet *)tableView:(UITableView *)tableView willStartHidingSections:(NSIndexSet *)sections animated:(BOOL)animated;
+- (void)tableView:(UITableView *)tableView didStartHidingSections:(NSIndexSet *)sections animated:(BOOL)animated;
+- (void)tableView:(UITableView *)tableView didFinishHidingSections:(NSIndexSet *)sections animated:(BOOL)animated;
+- (NSIndexSet *)tableView:(UITableView *)tableView willStartShowingSections:(NSIndexSet *)sections animated:(BOOL)animated;
+- (void)tableView:(UITableView *)tableView didStartShowingSections:(NSIndexSet *)sections animated:(BOOL)animated;
+- (void)tableView:(UITableView *)tableView didFinishShowingSections:(NSIndexSet *)sections animated:(BOOL)animated;
 @end
 
 
@@ -37,9 +43,9 @@
 - (void)toggleFoldingOnSection:(NSInteger)section;
 
 // hiding / showing
-- (void)hideSections:(NSIndexSet *)indices animated:(BOOL)animated;
+- (void)hideSections:(NSIndexSet *)sections animated:(BOOL)animated;
 - (void)hideSection:(NSInteger)section animated:(BOOL)animated;
-- (void)showSections:(NSIndexSet *)indices animated:(BOOL)animated;
+- (void)showSections:(NSIndexSet *)sections animated:(BOOL)animated;
 - (void)showSection:(NSInteger)section animated:(BOOL)animated;
 - (void)toggleVisibilityOnSection:(NSInteger)section;
 
