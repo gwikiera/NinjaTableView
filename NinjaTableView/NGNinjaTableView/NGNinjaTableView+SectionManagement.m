@@ -307,7 +307,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
     
     if ([self.ninjaTableView isSectionHidden:section] == YES) {
-        return CGFLOAT_MIN;
+        return CGFLOAT_MIN;     // workaround to make section header really invisible, 0 returned here causes a bug - Apple will use "default" section header height instead
     }
     
     return [self.tableViewDelegate tableView:tableView heightForHeaderInSection:section];
@@ -320,7 +320,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
     
     if ([self.ninjaTableView isSectionHidden:section] == YES) {
-        return CGFLOAT_MIN;
+        return CGFLOAT_MIN;     // workaround to make section footer really invisible, 0 returned here causes a bug - Apple will use "default" section footer height instead
     }
     
     return [self.tableViewDelegate tableView:tableView heightForFooterInSection:section];
