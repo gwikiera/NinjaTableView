@@ -15,7 +15,7 @@ void *hiddenSectionsIndexSetKey = &hiddenSectionsIndexSetKey;
 void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsKey;
 
 @interface CATransaction(Blocks)
-+ (void)performWithBlock:(void(^)())transaction beforeBegin:(void(^)())bbegin afterCommit:(void(^)())acommit completion:(void(^)())completion;
++ (void)performWithTransactionBlock:(void (^)())transaction afterTransactionCommitBlock:(void (^)())afterCommit transactionCompletionBlock:(void (^)())completion;
 @end
 
 @interface NGNinjaTableView()
@@ -35,15 +35,14 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
     if (indices.count == 0) return;
     
-    [CATransaction performWithBlock:^{
-        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
-    } beforeBegin:^{
+    [CATransaction performWithTransactionBlock:^{
         [self.foldedSectionsIndexSet addIndexes:indices];
-    } afterCommit:^{
+        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    } afterTransactionCommitBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didStartFoldingSections:animated:)] == YES){
             [(id)self.delegate tableView:self didStartFoldingSections:indices animated:animated];
         }
-    } completion:^{
+    } transactionCompletionBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didFinishFoldingSections:animated:)] == YES){
             [(id)self.delegate tableView:self didFinishFoldingSections:indices animated:animated];
         }
@@ -89,13 +88,13 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
     
     // perform unfolding
-    [CATransaction performWithBlock:^{
+    [CATransaction performWithTransactionBlock:^{
         [self reloadSections:sectionsToReload withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
-    } beforeBegin:nil afterCommit:^{
+    } afterTransactionCommitBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didStartUnfoldingSections:animated:)] == YES){
             [(id)self.delegate tableView:self didStartUnfoldingSections:sectionsToUnfold animated:animated];
         }
-    } completion:^{
+    } transactionCompletionBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didFinishUnfoldingSections:animated:)] == YES){
             [(id)self.delegate tableView:self didFinishUnfoldingSections:sectionsToUnfold animated:animated];
         }
@@ -126,15 +125,14 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     if (indices.count == 0) return;
 
     
-    [CATransaction performWithBlock:^{
-        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
-    } beforeBegin:^{
+    [CATransaction performWithTransactionBlock:^{
         [self.hiddenSectionsIndexSet addIndexes:indices];
-    } afterCommit:^{
+        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    } afterTransactionCommitBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didStartHidingSections:animated:)] == YES) {
             [(id)self.delegate tableView:self didStartHidingSections:indices animated:animated];
         }
-    } completion:^{
+    } transactionCompletionBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didFinishHidingSections:animated:)] == YES) {
             [(id)self.delegate tableView:self didStartHidingSections:indices animated:animated];
         }
@@ -154,15 +152,14 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
     if (indices.count == 0) return;
     
-    [CATransaction performWithBlock:^{
-        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
-    } beforeBegin:^{
+    [CATransaction performWithTransactionBlock:^{
         [self.hiddenSectionsIndexSet removeIndexes:indices];
-    } afterCommit:^{
+        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    } afterTransactionCommitBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didStartShowingSections:animated:)] == YES) {
             [(id)self.delegate tableView:self didStartShowingSections:indices animated:animated];
         }
-    } completion:^{
+    } transactionCompletionBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didFinishShowingSections:animated:)] == YES) {
             [(id)self.delegate tableView:self didFinishShowingSections:indices animated:animated];
         }
@@ -333,9 +330,8 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 
 
 @implementation CATransaction(Blocks)
-+ (void)performWithBlock:(void (^)())transaction beforeBegin:(void (^)())bbegin afterCommit:(void (^)())acommit completion:(void (^)())completion
++ (void)performWithTransactionBlock:(void (^)())transaction afterTransactionCommitBlock:(void (^)())acommit transactionCompletionBlock:(void (^)())completion
 {
-    if (bbegin != nil) bbegin();
     [CATransaction begin];
     if (completion != nil) {
         [CATransaction setCompletionBlock:^{
