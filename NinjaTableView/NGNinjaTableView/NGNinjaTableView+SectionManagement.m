@@ -14,6 +14,10 @@ void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
 void *hiddenSectionsIndexSetKey = &hiddenSectionsIndexSetKey;
 void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsKey;
 
+@interface CATransaction(Blocks)
++ (void)performWithBlock:(void(^)())transaction beforeBegin:(void(^)())bbegin afterCommit:(void(^)())acommit completion:(void(^)())completion;
+@end
+
 @interface NGNinjaTableView()
 @property (nonatomic, readwrite) NSMutableIndexSet * foldedSectionsIndexSet;
 @property (nonatomic, readwrite) NSMutableIndexSet * hiddenSectionsIndexSet;
@@ -31,21 +35,19 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
     if (indices.count == 0) return;
     
-    [self.foldedSectionsIndexSet addIndexes:indices];
-    
-    
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
+    [CATransaction performWithBlock:^{
+        [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    } beforeBegin:^{
+        [self.foldedSectionsIndexSet addIndexes:indices];
+    } afterCommit:^{
+        if ([self.delegate respondsToSelector:@selector(tableView:didStartFoldingSections:animated:)] == YES){
+            [(id)self.delegate tableView:self didStartFoldingSections:indices animated:animated];
+        }
+    } completion:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didFinishFoldingSections:animated:)] == YES){
             [(id)self.delegate tableView:self didFinishFoldingSections:indices animated:animated];
         }
     }];
-    
-    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
-    [CATransaction commit];
-    if ([self.delegate respondsToSelector:@selector(tableView:didStartFoldingSections:animated:)] == YES){
-        [(id)self.delegate tableView:self didStartFoldingSections:indices animated:animated];
-    }
 }
 
 - (void)foldSection:(NSInteger)section animated:(BOOL)animated
@@ -55,52 +57,49 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 
 - (void)unfoldSections:(NSIndexSet *)sections animated:(BOOL)animated
 {
-    NSIndexSet * indices = sections;
+    NSIndexSet * sectionsToUnfold = sections;
     if ([self.delegate respondsToSelector:@selector(tableView:willStartUnfoldingSections:animated:)] == YES) {
-        indices = [(id)self.delegate tableView:self willStartUnfoldingSections:sections animated:animated];
+        sectionsToUnfold = [(id)self.delegate tableView:self willStartUnfoldingSections:sections animated:animated];
     }
-    if (indices.count == 0) return;
+    if (sectionsToUnfold.count == 0) return;
     
+    NSIndexSet * sectionsToReload = sectionsToUnfold;
+    
+    // If allowsUnfoldingOnMultipleSections is set to NO unfolding may be performed only on one section
+    // additinaly the sections that were unfolded before become folded in afterwards.
+    // Otherwise (if allowsUnfoldingOnMultipleSections == YES) then we're just unfolding what's passed as parameter
     if (self.allowsUnfoldingOnMultipleSections == NO) {
-        if ([indices count] > 1) {
+        if ([sectionsToUnfold count] > 1) {
             [NSException raise:NSInvalidArgumentException format:@"Unfolding more than one section when allowsUnfoldingOnMultipleSections is set to NO is prohibited"];
         }
         
+        // decide which sections should be reloaded
         NSIndexSet * oldFoldedSectionsIndexSet = self.foldedSectionsIndexSet;
         NSMutableIndexSet * toReload = [[self allSectionsIndexSet] mutableCopy];
-        [toReload removeIndexes:oldFoldedSectionsIndexSet]; // all unfolded
-        [toReload addIndexes:indices];
+        [toReload removeIndexes:oldFoldedSectionsIndexSet]; // reload also sections that were folded before (closing needs to be performed)
+        [toReload addIndexes:sectionsToUnfold];             // reload the section we're unfolding
+        sectionsToReload = toReload;
         
+        // setup new unfolded section
         self.foldedSectionsIndexSet = [[self allSectionsIndexSet] mutableCopy];
-        [self.foldedSectionsIndexSet removeIndexes:indices];
-        
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            if ([self.delegate respondsToSelector:@selector(tableView:didFinishUnfoldingSections:animated:)] == YES){
-                [(id)self.delegate tableView:self didFinishUnfoldingSections:indices animated:animated];
-            }
-        }];
-        [self reloadSections:toReload withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
-        [CATransaction commit];
-        if ([self.delegate respondsToSelector:@selector(tableView:didStartUnfoldingSections:animated:)] == YES){
-            [(id)self.delegate tableView:self didStartUnfoldingSections:indices animated:animated];
-        }
-        return;
+        [self.foldedSectionsIndexSet removeIndexes:sectionsToUnfold];
+    }
+    else {
+        [self.foldedSectionsIndexSet removeIndexes:sectionsToUnfold];
     }
     
-    [self.foldedSectionsIndexSet removeIndexes:indices];
-    
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
+    // perform unfolding
+    [CATransaction performWithBlock:^{
+        [self reloadSections:sectionsToReload withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
+    } beforeBegin:nil afterCommit:^{
+        if ([self.delegate respondsToSelector:@selector(tableView:didStartUnfoldingSections:animated:)] == YES){
+            [(id)self.delegate tableView:self didStartUnfoldingSections:sectionsToUnfold animated:animated];
+        }
+    } completion:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didFinishUnfoldingSections:animated:)] == YES){
-            [(id)self.delegate tableView:self didFinishUnfoldingSections:indices animated:animated];
+            [(id)self.delegate tableView:self didFinishUnfoldingSections:sectionsToUnfold animated:animated];
         }
     }];
-    [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
-    [CATransaction commit];
-    if ([self.delegate respondsToSelector:@selector(tableView:didStartUnfoldingSections:animated:)] == YES){
-        [(id)self.delegate tableView:self didStartUnfoldingSections:indices animated:animated];
-    }
 }
 
 - (void)unfoldSection:(NSInteger)section animated:(BOOL)animated
@@ -295,4 +294,22 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     return [self.tableViewDelegate tableView:tableView heightForFooterInSection:section];
 }
 
+@end
+
+
+@implementation CATransaction(Blocks)
++ (void)performWithBlock:(void (^)())transaction beforeBegin:(void (^)())bbegin afterCommit:(void (^)())acommit completion:(void (^)())completion
+{
+    if (bbegin != nil) bbegin();
+    [CATransaction begin];
+    if (completion != nil) {
+        [CATransaction setCompletionBlock:^{
+            completion();
+        }];
+    }
+    
+    if (transaction != nil) transaction();
+    [CATransaction commit];
+    if (acommit != nil) acommit();
+}
 @end
