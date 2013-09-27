@@ -181,6 +181,67 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
 }
 
+- (BOOL)isSectionFolded:(NSInteger)section
+{
+    return [self.foldedSectionsIndexSet containsIndex:section];
+}
+
+- (BOOL)isSectionHidden:(NSInteger)section
+{
+    return [self.hiddenSectionsIndexSet containsIndex:section];
+}
+
+/**
+	We should consider moving this method to NGNinjaTableView itself, maybe hidden under some "auto vertical centering" mode
+ */
+- (CGFloat)emptyContentHeight
+{
+    CGFloat height = self.bounds.size.height;
+    height -= self.tableHeaderView.bounds.size.height;
+    height -= self.tableFooterView.bounds.size.height;
+    
+    // section headers
+    NSInteger sectionsCount = [self.dataSource numberOfSectionsInTableView:self];
+    if ([self.delegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)] == YES) {
+        for (int i = 0; i < sectionsCount; i++) {
+            height -= [self.delegate tableView:self heightForHeaderInSection:i];
+            if (height <= 0) return 0;
+        }
+    }
+    else {
+        height -= (20.0f*sectionsCount); // default header height used (20)
+    }
+    
+    // section footers
+    if ([self.delegate respondsToSelector:@selector(tableView:heightForFooterInSection:)] == YES) {
+        for (int i = 0; i < sectionsCount; i++) {
+            height -= [self.delegate tableView:self heightForFooterInSection:i];
+            if (height <= 0) return 0;
+        }
+    }
+    else {
+        height -= (20.0f*sectionsCount); // default footer height used (20)
+    }
+    
+    // rows
+    for (int i = 0; i < sectionsCount; i++) {
+        NSInteger rowsCount = [self.dataSource tableView:self numberOfRowsInSection:i];
+        if ([self.delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)] == YES) {
+            for (int j = 0; j < rowsCount; j++) {
+                NSIndexPath * indexPath = [NSIndexPath indexPathForRow:j inSection:i];
+                height -= [self.delegate tableView:self heightForRowAtIndexPath:indexPath];
+                if (height <= 0) return 0;
+            }
+        }
+        else {
+            height -= (44.0f*rowsCount);
+            if (height <= 0) return 0;
+        }
+    }
+    
+    return MAX(height, 0);
+}
+
 #pragma mark - Interface Properties
 
 - (NSMutableIndexSet *)foldedSectionsIndexSet
@@ -228,18 +289,6 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         // close all sections by default
         [self foldSections:[self allSectionsIndexSet] animated:NO];
     }
-}
-
-#pragma mark - Interface Methods
-
-- (BOOL)isSectionFolded:(NSInteger)section
-{
-    return [self.foldedSectionsIndexSet containsIndex:section];
-}
-
-- (BOOL)isSectionHidden:(NSInteger)section
-{
-    return [self.hiddenSectionsIndexSet containsIndex:section];
 }
 
 #pragma mark - Private Methods

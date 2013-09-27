@@ -52,4 +52,8 @@
 // examining sections
 - (BOOL)isSectionFolded:(NSInteger)section;
 - (BOOL)isSectionHidden:(NSInteger)section;
+
+// other
+- (CGFloat)emptyContentHeight;
+
 @end
