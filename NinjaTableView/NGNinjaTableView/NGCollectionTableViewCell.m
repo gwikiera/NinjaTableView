@@ -26,6 +26,9 @@ static NSString * const kIndexPathsForSelectedItemsKey = @"indexPathsForSelected
 
 - (void)didMoveToSuperview
 {
+    if (_collectionView.superview != nil)
+        return;
+    
     [self.contentView addSubview:self.collectionView];
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     NSDictionary * views = @{@"collectionView": self.collectionView};
