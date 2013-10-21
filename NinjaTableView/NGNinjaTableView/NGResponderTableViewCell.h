@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import "NGNinjaTableViewCell.h"
+#import "NGNinjaTableViewCellSubclass.h"
 
 @class NGResponderTableViewCell;
 

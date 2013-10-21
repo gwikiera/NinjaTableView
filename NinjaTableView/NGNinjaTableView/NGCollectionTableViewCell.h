@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Wojtek Nagrodzki. All rights reserved.
 //
 
-#import "NGNinjaTableViewCell.h"
+#import "NGNinjaTableViewCellSubclass.h"
 
 @class NGCollectionTableViewCell;
 

@@ -23,35 +23,7 @@
 #import "NGNinjaTableViewCell.h"
 
 
-@interface NGNinjaTableViewCell ()
-
-@property (strong, nonatomic) NSIndexPath * indexPath;
-
-@end
-
-
 @implementation NGNinjaTableViewCell
-
-#pragma mark - Public Properties
-
-- (id)delegate
-{
-    UIView * tableView = [self superview];
-    while (tableView != nil && [tableView isKindOfClass:UITableView.class] == NO) {
-        tableView = [tableView superview];
-    }
-    
-    NSParameterAssert([tableView isKindOfClass:[NGNinjaTableView class]] == YES);
-    return [tableView valueForKey:@"delegate"];
-}
-
-- (NGNinjaTableView *)tableView
-{
-    if ([self.superview isKindOfClass:[NGNinjaTableView class]] == YES)
-        return (NGNinjaTableView *)self.superview;
-    
-    return nil;
-}
 
 #pragma mark - Instance Methods
 
@@ -65,20 +37,42 @@
     // does nothing
 }
 
+#pragma mark - Private Properties
+
+- (id)delegate
+{
+    UIView * tableView = [self superview];
+    while (tableView != nil && [tableView isKindOfClass:UITableView.class] == NO) {
+        tableView = [tableView superview];
+    }
+    
+    NSParameterAssert([tableView isKindOfClass:[NGNinjaTableView class]] == YES);
+    return [tableView valueForKey:@"delegate"];
+}
+
+- (NSIndexPath *)indexPath
+{
+    return [self.tableView indexPathForCell:self];
+}
+
+- (NGNinjaTableView *)tableView
+{
+    if ([self.superview isKindOfClass:[NGNinjaTableView class]] == YES)
+        return (NGNinjaTableView *)self.superview;
+    
+    return nil;
+}
+
 #pragma mark - NGNinjaTableViewCellAppearing
 
 - (void)willAppearInRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.indexPath = indexPath;
-    
     id internalStateData = [self.tableView dataForIndexPath:indexPath];
     [self setInternalStateData:internalStateData];
 }
 
 - (void)didDisappearFromRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    self.indexPath = nil;
-    
     id internalStateData = [self internalStateData];
     [self.tableView setData:internalStateData forIndexPath:indexPath];
 }

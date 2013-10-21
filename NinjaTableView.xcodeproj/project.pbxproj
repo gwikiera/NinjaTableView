@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E0DE1C01761E4EF0003B217 /* NGResponderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DE1BF1761E4EF0003B217 /* NGResponderTableViewCell.m */; };
+		2E0F6DFC181575D100D98E7E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0F6DFB181575D100D98E7E /* QuartzCore.framework */; };
 		2E42799A17F082A000A532AE /* NGCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E42799917F082A000A532AE /* NGCollectionTableViewCell.m */; };
 		2E42799F17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E42799D17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m */; };
 		2E4279A017F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E42799E17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib */; };
@@ -38,6 +39,8 @@
 /* Begin PBXFileReference section */
 		2E0DE1BE1761E4EF0003B217 /* NGResponderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGResponderTableViewCell.h; sourceTree = "<group>"; };
 		2E0DE1BF1761E4EF0003B217 /* NGResponderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGResponderTableViewCell.m; sourceTree = "<group>"; };
+		2E0F6DFA18156F6200D98E7E /* NGNinjaTableViewCellSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableViewCellSubclass.h; sourceTree = "<group>"; };
+		2E0F6DFB181575D100D98E7E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2E42799817F082A000A532AE /* NGCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGCollectionTableViewCell.h; sourceTree = "<group>"; };
 		2E42799917F082A000A532AE /* NGCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGCollectionTableViewCell.m; sourceTree = "<group>"; };
 		2E42799C17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGCollectionTableViewCellDemoViewController.h; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0F6DFC181575D100D98E7E /* QuartzCore.framework in Frameworks */,
 				2EE9BE90167FAA90008C1E11 /* UIKit.framework in Frameworks */,
 				2EE9BE92167FAA90008C1E11 /* Foundation.framework in Frameworks */,
 				2EE9BE94167FAA90008C1E11 /* CoreGraphics.framework in Frameworks */,
@@ -135,6 +139,7 @@
 		2EE9BE8E167FAA90008C1E11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E0F6DFB181575D100D98E7E /* QuartzCore.framework */,
 				2EE9BE8F167FAA90008C1E11 /* UIKit.framework */,
 				2EE9BE91167FAA90008C1E11 /* Foundation.framework */,
 				2EE9BE93167FAA90008C1E11 /* CoreGraphics.framework */,
@@ -184,6 +189,7 @@
 				AF1F16D117EB0A04000DD38D /* NGNinjaTableViewSubclass.h */,
 				2EE9BEBB167FAACD008C1E11 /* NGNinjaTableViewCell.h */,
 				2EE9BEBC167FAACD008C1E11 /* NGNinjaTableViewCell.m */,
+				2E0F6DFA18156F6200D98E7E /* NGNinjaTableViewCellSubclass.h */,
 				2EE9BEBD167FAACD008C1E11 /* NGPulseTableViewCell.h */,
 				2EE9BEBE167FAACD008C1E11 /* NGPulseTableViewCell.m */,
 				AF1F16D217EB1988000DD38D /* NGNinjaTableView+SectionManagement.h */,

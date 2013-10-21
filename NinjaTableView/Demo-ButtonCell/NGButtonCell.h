@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Wojtek Nagrodzki. All rights reserved.
 //
 
-#import "NGNinjaTableViewCell.h"
+#import "NGNinjaTableViewCellSubclass.h"
 
 @class NGButtonCell;
 

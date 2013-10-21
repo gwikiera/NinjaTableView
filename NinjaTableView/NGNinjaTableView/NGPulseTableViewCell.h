@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Trifork. All rights reserved.
 //
 
-#import "NGNinjaTableViewCell.h"
+#import "NGNinjaTableViewCellSubclass.h"
 
 @class NGPulseTableViewCell;
 
