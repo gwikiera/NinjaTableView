@@ -21,7 +21,7 @@
  */
 
 #import "NGNinjaTableView.h"
-#import "NGNinjaTableViewSubclass.h"
+
 
 @interface NGNinjaTableViewDelegateAndDataSourceSurrogate()<UITableViewDelegate, UITableViewDataSource>
 
