@@ -8,6 +8,15 @@
 
 #import "NGNinjaTableView.h"
 
+
+@protocol NGNinjaTableViewHeaderFooterViewAppearing <NSObject>
+
+- (void)willAppearInSection:(NSInteger)section;
+- (void)willDisappearFromSection:(NSInteger)section;
+
+@end
+
+
 @protocol NGSectionManagementDelegate <NSObject>    // object that may implement this protocol is UITableViews' "delegate"
 @optional
 // folding / unfolding delegate methods

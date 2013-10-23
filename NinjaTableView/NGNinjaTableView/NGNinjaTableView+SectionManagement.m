@@ -385,6 +385,9 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     UIView * headerView = [self.tableViewDelegate tableView:tableView viewForHeaderInSection:section];
     [self.ninjaTableView registerHeaderView:headerView forSection:section];
     
+    if ([headerView respondsToSelector:@selector(willAppearInSection:)] == YES)
+        [headerView performSelector:@selector(willAppearInSection:) withObject:@(section)];
+    
     return headerView;
 }
 
@@ -423,6 +426,10 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     
     if ([self.tableViewDelegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)] == YES)
         [self.tableViewDelegate tableView:tableView willDisplayHeaderView:view forSection:section];
+    
+    // header view is alredy notified about appearing in -tableView:viewForHeaderInSection: method
+//    if ([view respondsToSelector:@selector(willAppearInSection:)] == YES)
+//        [view performSelector:@selector(willAppearInSection) withObject:@(section)];
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section
@@ -431,6 +438,9 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     
     if ([self.tableViewDelegate respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)] == YES)
         [self.tableViewDelegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
+    
+    if ([view respondsToSelector:@selector(willDisappearFromSection:)] == YES)
+        [view performSelector:@selector(willDisappearFromSection:) withObject:@(section)];
 }
 
 @end
