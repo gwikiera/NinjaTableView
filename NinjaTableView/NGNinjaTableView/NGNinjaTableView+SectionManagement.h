@@ -52,6 +52,7 @@
 // examining sections
 - (BOOL)isSectionFolded:(NSInteger)section;
 - (BOOL)isSectionHidden:(NSInteger)section;
+- (NSInteger)sectionForHeaderView:(UIView *)headerView;
 
 // other
 - (CGFloat)emptyContentHeight;

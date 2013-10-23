@@ -12,6 +12,7 @@
 
 void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
 void *hiddenSectionsIndexSetKey = &hiddenSectionsIndexSetKey;
+void *sectionsForHeadersKey = &sectionsForHeadersKey;
 void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsKey;
 
 @interface CATransaction(Blocks)
@@ -21,6 +22,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 @interface NGNinjaTableView()
 @property (nonatomic, readwrite) NSMutableIndexSet * foldedSectionsIndexSet;
 @property (nonatomic, readwrite) NSMutableIndexSet * hiddenSectionsIndexSet;
+@property (strong, nonatomic) NSMapTable * sectionsForHeaders;
 @end
 
 @implementation NGNinjaTableView (SectionManagement)
@@ -191,6 +193,15 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     return [self.hiddenSectionsIndexSet containsIndex:section];
 }
 
+- (NSInteger)sectionForHeaderView:(UIView *)headerView
+{
+    NSNumber * section = [self.sectionsForHeaders objectForKey:headerView];
+    if (section == nil)
+        return NSNotFound;
+    
+    return section.integerValue;
+}
+
 /**
 	We should consider moving this method to NGNinjaTableView itself, maybe hidden under some "auto vertical centering" mode
  */
@@ -291,6 +302,18 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
 }
 
+#pragma mark - Private Properties
+
+- (NSMapTable *)sectionsForHeaders
+{
+    NSMapTable * sectionsForHeaders = objc_getAssociatedObject(self, sectionsForHeadersKey);
+    if (sectionsForHeaders == nil) {
+        sectionsForHeaders = [NSMapTable weakToStrongObjectsMapTable];
+        objc_setAssociatedObject(self, sectionsForHeadersKey, sectionsForHeaders, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return sectionsForHeaders;
+}
+
 #pragma mark - Private Methods
 
 - (NSIndexSet *)allSectionsIndexSet
@@ -303,6 +326,16 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 - (BOOL)isSectionContentVisible:(NSInteger)section
 {
     return !([self isSectionFolded:section] || [self isSectionHidden:section]);
+}
+
+- (void)registerHeaderView:(UIView *)headerView forSection:(NSInteger)section
+{
+    [self.sectionsForHeaders setObject:@(section) forKey:headerView];
+}
+
+- (void)unregisterHeaderView:(UIView *)headerView fromSection:(NSInteger)section
+{
+    [self.sectionsForHeaders removeObjectForKey:headerView];
 }
 
 @end
@@ -346,7 +379,13 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         return nil;
     }
     
-    return [self.tableViewDelegate tableView:tableView viewForHeaderInSection:section];
+    // The reason headeView is registered here is that UITableView does not call -tableView:willDisplayHeaderView:forSection:
+    // if delegate does not return a header view that is derived from UITableViewHeaderFooterView
+    // however -tableView:didEndDisplayingHeaderView:forSection: is called
+    UIView * headerView = [self.tableViewDelegate tableView:tableView viewForHeaderInSection:section];
+    [self.ninjaTableView registerHeaderView:headerView forSection:section];
+    
+    return headerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -373,6 +412,25 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
     
     return [self.tableViewDelegate tableView:tableView heightForFooterInSection:section];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    // headerView is already registered in -tableView:viewForHeaderInSection: method
+    //[self.ninjaTableView registerHeaderView:view forSection:section];
+    
+    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)] == YES)
+        [self.tableViewDelegate tableView:tableView willDisplayHeaderView:view forSection:section];
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    [self.ninjaTableView unregisterHeaderView:view fromSection:section];
+    
+    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)] == YES)
+        [self.tableViewDelegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
 }
 
 @end
