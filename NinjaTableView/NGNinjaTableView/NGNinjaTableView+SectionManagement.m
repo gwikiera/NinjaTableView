@@ -251,7 +251,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         indexSet = [NSMutableIndexSet indexSet];
         objc_setAssociatedObject(self, foldedSectionsIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
-    return indexSet;
+    return [indexSet copy];
 }
 
 - (void)setFoldedSectionsIndexSet:(NSMutableIndexSet *)foldedSectionsIndexSet
@@ -266,7 +266,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         indexSet = [NSMutableIndexSet indexSet];
         objc_setAssociatedObject(self, hiddenSectionsIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
-    return indexSet;
+    return [indexSet copy];
 }
 
 - (BOOL)allowsUnfoldingOnMultipleSections
