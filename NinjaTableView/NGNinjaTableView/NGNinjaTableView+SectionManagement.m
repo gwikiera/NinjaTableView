@@ -373,11 +373,11 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 //
 // We can't require somebody to implement the following methods
 // We even can not say that that the particular method is not implemented (respondsToSelector == NO)
-// so it would be just forwarded to real delegate to return defaults because
-// tableView will ommit what we've implemented here (respondsToSelector == NO) == no implementatio
+// so the methods below will be just forwarded to the real delegate to return defaults because
+// tableView will ommit what we've implemented here (respondsToSelector == NO) == no implementation.
 // Because of that we should return default values, however it's nontrivial and sometimes imposible to predict them
 // that's why I simply return 0, nil aso. If somebody want's to use headers or footers,
-// he will most probably override those methods anyway sot that's if not too bad.
+// he will most probably override those methods anyway so that's not too bad.
 //
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
