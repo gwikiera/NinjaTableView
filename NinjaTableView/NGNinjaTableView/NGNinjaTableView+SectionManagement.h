@@ -25,8 +25,8 @@
 
 @protocol NGNinjaTableViewHeaderFooterViewAppearing <NSObject>
 
-- (void)willAppearInSection:(NSInteger)section;
-- (void)willDisappearFromSection:(NSInteger)section;
+- (void)willAppearInTableView:(NGNinjaTableView *)tableView atSection:(NSInteger)section;
+- (void)willDisappearFromTableView:(NGNinjaTableView *)tableView atSection:(NSInteger)section;
 
 @end
 

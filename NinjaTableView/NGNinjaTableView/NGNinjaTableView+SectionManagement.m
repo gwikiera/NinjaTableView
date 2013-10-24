@@ -393,7 +393,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 // that's why I simply return 0, nil aso. If somebody want's to use headers or footers,
 // he will most probably override those methods anyway so that's not too bad.
 //
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(NGNinjaTableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)] == NO) {
         return nil;
@@ -409,8 +409,8 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     UIView * headerView = [self.tableViewDelegate tableView:tableView viewForHeaderInSection:section];
     [self.ninjaTableView registerHeaderView:headerView forSection:section];
     
-    if ([headerView respondsToSelector:@selector(willAppearInSection:)] == YES)
-        [headerView performSelector:@selector(willAppearInSection:) withObject:@(section)];
+    if ([headerView respondsToSelector:@selector(willAppearInTableView:atSection:)] == YES)
+        [ (id <NGNinjaTableViewHeaderFooterViewAppearing>)headerView willAppearInTableView:tableView atSection:section];
     
     return headerView;
 }
@@ -452,19 +452,20 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         [self.tableViewDelegate tableView:tableView willDisplayHeaderView:view forSection:section];
     
     // header view is alredy notified about appearing in -tableView:viewForHeaderInSection: method
-    //    if ([view respondsToSelector:@selector(willAppearInSection:)] == YES)
-    //        [view performSelector:@selector(willAppearInSection) withObject:@(section)];
+    //    if ([headerView respondsToSelector:@selector(willAppearInTableView:atSection:)] == YES)
+    //        [ (id <NGNinjaTableViewHeaderFooterViewAppearing>)viewiew willAppearInTableView:tableView atSection:section];
+
 }
 
-- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section
+- (void)tableView:(NGNinjaTableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     [self.ninjaTableView unregisterHeaderView:view fromSection:section];
     
     if ([self.tableViewDelegate respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)] == YES)
         [self.tableViewDelegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
     
-    if ([view respondsToSelector:@selector(willDisappearFromSection:)] == YES)
-        [view performSelector:@selector(willDisappearFromSection:) withObject:@(section)];
+    if ([view respondsToSelector:@selector(willDisappearFromTableView:atSection:)] == YES)
+        [ (id <NGNinjaTableViewHeaderFooterViewAppearing>)view willDisappearFromTableView:tableView atSection:section];
 }
 
 @end
