@@ -10,8 +10,8 @@
 #import "NGNinjaTableViewSubclass.h"
 #import <objc/runtime.h>
 
-void *foldedSectionsIndexSetKey = &foldedSectionsIndexSetKey;
-void *hiddenSectionsIndexSetKey = &hiddenSectionsIndexSetKey;
+void *foldedSectionsMutableIndexSetKey = &foldedSectionsMutableIndexSetKey;
+void *hiddenSectionsMutableIndexSetKey = &hiddenSectionsMutableIndexSetKey;
 void *sectionsForHeadersKey = &sectionsForHeadersKey;
 void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsKey;
 
@@ -20,8 +20,8 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 @end
 
 @interface NGNinjaTableView()
-@property (nonatomic, readwrite) NSMutableIndexSet * foldedSectionsIndexSet;
-@property (nonatomic, readwrite) NSMutableIndexSet * hiddenSectionsIndexSet;
+@property (nonatomic, readwrite) NSMutableIndexSet * foldedSectionsMutableIndexSet;
+@property (nonatomic, readwrite) NSMutableIndexSet * hiddenSectionsMutableIndexSet;
 @property (strong, nonatomic) NSMapTable * sectionsForHeaders;
 @end
 
@@ -38,7 +38,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     if (indices.count == 0) return;
     
     [CATransaction performWithTransactionBlock:^{
-        [self.foldedSectionsIndexSet addIndexes:indices];
+        [self.foldedSectionsMutableIndexSet addIndexes:indices];
         [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
     } afterTransactionCommitBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didStartFoldingSections:animated:)] == YES){
@@ -75,18 +75,18 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         }
         
         // decide which sections should be reloaded
-        NSIndexSet * oldFoldedSectionsIndexSet = self.foldedSectionsIndexSet;
+        NSIndexSet * oldFoldedSectionsIndexSet = self.foldedSectionsMutableIndexSet;
         NSMutableIndexSet * toReload = [[self allSectionsIndexSet] mutableCopy];
         [toReload removeIndexes:oldFoldedSectionsIndexSet]; // reload also sections that were folded before (closing needs to be performed)
         [toReload addIndexes:sectionsToUnfold];             // reload the section we're unfolding
         sectionsToReload = toReload;
         
         // setup new unfolded section
-        self.foldedSectionsIndexSet = [[self allSectionsIndexSet] mutableCopy];
-        [self.foldedSectionsIndexSet removeIndexes:sectionsToUnfold];
+        self.foldedSectionsMutableIndexSet = [[self allSectionsIndexSet] mutableCopy];
+        [self.foldedSectionsMutableIndexSet removeIndexes:sectionsToUnfold];
     }
     else {
-        [self.foldedSectionsIndexSet removeIndexes:sectionsToUnfold];
+        [self.foldedSectionsMutableIndexSet removeIndexes:sectionsToUnfold];
     }
     
     // perform unfolding
@@ -128,7 +128,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 
     
     [CATransaction performWithTransactionBlock:^{
-        [self.hiddenSectionsIndexSet addIndexes:indices];
+        [self.hiddenSectionsMutableIndexSet addIndexes:indices];
         [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
     } afterTransactionCommitBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didStartHidingSections:animated:)] == YES) {
@@ -155,7 +155,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     if (indices.count == 0) return;
     
     [CATransaction performWithTransactionBlock:^{
-        [self.hiddenSectionsIndexSet removeIndexes:indices];
+        [self.hiddenSectionsMutableIndexSet removeIndexes:indices];
         [self reloadSections:indices withRowAnimation: animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone];
     } afterTransactionCommitBlock:^{
         if ([self.delegate respondsToSelector:@selector(tableView:didStartShowingSections:animated:)] == YES) {
@@ -185,12 +185,12 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 
 - (BOOL)isSectionFolded:(NSInteger)section
 {
-    return [self.foldedSectionsIndexSet containsIndex:section];
+    return [self.foldedSectionsMutableIndexSet containsIndex:section];
 }
 
 - (BOOL)isSectionHidden:(NSInteger)section
 {
-    return [self.hiddenSectionsIndexSet containsIndex:section];
+    return [self.hiddenSectionsMutableIndexSet containsIndex:section];
 }
 
 - (NSInteger)sectionForHeaderView:(UIView *)headerView
@@ -255,31 +255,6 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 
 #pragma mark - Interface Properties
 
-- (NSMutableIndexSet *)foldedSectionsIndexSet
-{
-    NSMutableIndexSet * indexSet = objc_getAssociatedObject(self, foldedSectionsIndexSetKey);
-    if (indexSet == nil){
-        indexSet = [NSMutableIndexSet indexSet];
-        objc_setAssociatedObject(self, foldedSectionsIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return [indexSet copy];
-}
-
-- (void)setFoldedSectionsIndexSet:(NSMutableIndexSet *)foldedSectionsIndexSet
-{
-    objc_setAssociatedObject(self, foldedSectionsIndexSetKey, foldedSectionsIndexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSMutableIndexSet *)hiddenSectionsIndexSet
-{
-    NSMutableIndexSet * indexSet = objc_getAssociatedObject(self, hiddenSectionsIndexSetKey);
-    if (indexSet == nil){
-        indexSet = [NSMutableIndexSet indexSet];
-        objc_setAssociatedObject(self, hiddenSectionsIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return [indexSet copy];
-}
-
 - (BOOL)allowsUnfoldingOnMultipleSections
 {
     NSNumber * value = objc_getAssociatedObject(self, allowsUnfoldingOnMultipleSectionsKey);
@@ -302,6 +277,16 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     }
 }
 
+- (NSIndexSet *)foldedSectionsIndexSet
+{
+    return [self.foldedSectionsMutableIndexSet copy];
+}
+
+- (NSIndexSet *)hiddenSectionsIndexSet
+{
+    return [self.hiddenSectionsMutableIndexSet copy];
+}
+
 #pragma mark - Private Properties
 
 - (NSMapTable *)sectionsForHeaders
@@ -312,6 +297,31 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         objc_setAssociatedObject(self, sectionsForHeadersKey, sectionsForHeaders, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return sectionsForHeaders;
+}
+
+- (NSMutableIndexSet *)foldedSectionsMutableIndexSet
+{
+    NSMutableIndexSet * indexSet = objc_getAssociatedObject(self, foldedSectionsMutableIndexSetKey);
+    if (indexSet == nil){
+        indexSet = [NSMutableIndexSet indexSet];
+        objc_setAssociatedObject(self, foldedSectionsMutableIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return indexSet;
+}
+
+- (void)setFoldedSectionsMutableIndexSet:(NSMutableIndexSet *)foldedSectionsMutableIndexSet
+{
+    objc_setAssociatedObject(self, foldedSectionsMutableIndexSetKey, foldedSectionsMutableIndexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableIndexSet *)hiddenSectionsMutableIndexSet
+{
+    NSMutableIndexSet * indexSet = objc_getAssociatedObject(self, hiddenSectionsMutableIndexSetKey);
+    if (indexSet == nil){
+        indexSet = [NSMutableIndexSet indexSet];
+        objc_setAssociatedObject(self, hiddenSectionsMutableIndexSetKey, indexSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return indexSet;
 }
 
 #pragma mark - Private Methods
