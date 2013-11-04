@@ -31,6 +31,8 @@
 
 @end
 
+#pragma clang push
+#pragma clang diagnostic ignored "-Wprotocol"
 
 @implementation NGNinjaTableViewDelegateAndDataSourceSurrogate
 
@@ -104,6 +106,8 @@
 }
 
 @end
+
+#pragma clang pop
 
 
 @interface NGNinjaTableView ()
