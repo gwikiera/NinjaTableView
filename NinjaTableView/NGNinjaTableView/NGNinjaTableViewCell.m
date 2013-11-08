@@ -41,13 +41,8 @@
 
 - (id)delegate
 {
-    UIView * tableView = [self superview];
-    while (tableView != nil && [tableView isKindOfClass:UITableView.class] == NO) {
-        tableView = [tableView superview];
-    }
-    
-    NSParameterAssert([tableView isKindOfClass:[NGNinjaTableView class]] == YES);
-    return [tableView valueForKey:@"delegate"];
+    NSAssert(self.tableView != nil, @"NGNinjaTableViewCell must be inside of NGNinjaTableView to access the delegate");
+    return [self.tableView valueForKey:@"delegate"];
 }
 
 - (NSIndexPath *)indexPath
@@ -57,10 +52,12 @@
 
 - (NGNinjaTableView *)tableView
 {
-    if ([self.superview isKindOfClass:[NGNinjaTableView class]] == YES)
-        return (NGNinjaTableView *)self.superview;
+    UIView * tableView = [self superview];
+    while (tableView != nil && [tableView isKindOfClass:NGNinjaTableView.class] == NO) {
+        tableView = [tableView superview];
+    }
     
-    return nil;
+    return (NGNinjaTableView *)tableView;
 }
 
 #pragma mark - NGNinjaTableViewCellAppearing
