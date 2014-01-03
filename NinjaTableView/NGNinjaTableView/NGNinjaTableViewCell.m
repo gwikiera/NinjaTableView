@@ -53,11 +53,15 @@
 - (NGNinjaTableView *)tableView
 {
     UIView * tableView = [self superview];
-    while (tableView != nil && [tableView isKindOfClass:NGNinjaTableView.class] == NO) {
+    
+    while (tableView != nil && [tableView isKindOfClass:UITableView.class] == NO) {
         tableView = [tableView superview];
     }
     
-    return (NGNinjaTableView *)tableView;
+    if ([tableView isKindOfClass:NGNinjaTableView.class] == YES)
+        return (NGNinjaTableView *)tableView;
+    
+    return nil;
 }
 
 #pragma mark - NGNinjaTableViewCellAppearing
