@@ -28,22 +28,21 @@
  * NGNinjaTableViewCell provides convenient propertes to access table view, table view delegate and index path locating the cell.
  * It also delivers convenient template methods for getting and setting cell internal state.
  */
-@interface NGNinjaTableViewCell : UITableViewCell <NGNinjaTableViewCellAppearing>
+@interface NGNinjaTableViewCell : UITableViewCell
 
 /**
- * Templeate method. Override it and return internal state of the cell if needed.
- * Default implementation returns nil
- * 
- * @return Cell insternal state object.
+ * Delegate of the cell (actually tableView delegate).
  */
-- (id)internalStateData;
+@property (nonatomic, readonly) id delegate;
 
 /**
- * Template method. Override it and adjust the cell for given internal state object.
- * Default implementation does nothing.
- *
- * @param data Cell internal state object.
+ * Index path locating a row in table view where the cell is displayed, or nil if it is not displayed.
  */
-- (void)setInternalStateData:(id)data;
+@property (nonatomic, readonly) NSIndexPath * indexPath;
+
+/**
+ * NGNinjaTableView in which the cell lies.
+ */
+@property (nonatomic, readonly) NGNinjaTableView * tableView;
 
 @end
