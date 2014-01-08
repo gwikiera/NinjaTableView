@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NGViewController">
@@ -55,6 +55,16 @@
                         <action selector="sectionManagmentDemoTapped:" destination="-1" eventType="touchUpInside" id="EoK-Fh-cp9"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNM-tm-pky">
+                    <rect key="frame" x="20" y="364" width="280" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="TextField Cell Demo">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="textFieldCellDemoTapped:" destination="-1" eventType="touchUpInside" id="3F5-wq-fWW"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -65,11 +75,14 @@
                 <constraint firstItem="dep-MH-iwV" firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="EaU-Uc-eFY"/>
                 <constraint firstItem="21" firstAttribute="leading" secondItem="8" secondAttribute="leading" id="IaN-o4-zsV"/>
                 <constraint firstItem="8" firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="JCK-nj-zew"/>
+                <constraint firstItem="0Sk-QX-MbF" firstAttribute="leading" secondItem="yNM-tm-pky" secondAttribute="leading" id="U8T-ha-qg1"/>
+                <constraint firstItem="0Sk-QX-MbF" firstAttribute="trailing" secondItem="yNM-tm-pky" secondAttribute="trailing" id="cBh-WV-fW1"/>
                 <constraint firstItem="21" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="8" symbolic="YES" id="dIm-YX-0JU"/>
                 <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="hsL-xQ-Xuz"/>
                 <constraint firstItem="dep-MH-iwV" firstAttribute="leading" secondItem="21" secondAttribute="leading" id="lhO-Gh-USS"/>
                 <constraint firstItem="0Sk-QX-MbF" firstAttribute="centerY" secondItem="6" secondAttribute="centerY" constant="57" id="vph-9Q-Mko"/>
                 <constraint firstItem="0Sk-QX-MbF" firstAttribute="top" secondItem="dep-MH-iwV" secondAttribute="bottom" constant="8" symbolic="YES" id="wsN-LF-vng"/>
+                <constraint firstItem="yNM-tm-pky" firstAttribute="top" secondItem="0Sk-QX-MbF" secondAttribute="bottom" constant="8" symbolic="YES" id="xf0-oU-DoW"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

@@ -23,21 +23,22 @@
 #import "NGNinjaTableViewCell.h"
 
 
-@interface NGNinjaTableViewCell (ForSubclassEyesOnly)
+@interface NGNinjaTableViewCell (ForSubclassEyesOnly) <NGNinjaTableViewCellAppearing>
 
 /**
- * Delegate of the cell (actually tableView delegate).
+ * Templeate method. Override it and return internal state of the cell if needed.
+ * Default implementation returns nil
+ *
+ * @return Cell insternal state object.
  */
-@property (nonatomic, readonly) id delegate;
+- (id)internalStateData;
 
 /**
- * Index path locating a row in table view where the cell is displayed, or nil if it is not displayed.
+ * Template method. Override it and adjust the cell for given internal state object.
+ * Default implementation does nothing.
+ *
+ * @param data Cell internal state object.
  */
-@property (nonatomic, readonly) NSIndexPath * indexPath;
-
-/**
- * NGNinjaTableView in which the cell lies.
- */
-@property (nonatomic, readonly) NGNinjaTableView * tableView;
+- (void)setInternalStateData:(id)data;
 
 @end

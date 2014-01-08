@@ -27,9 +27,7 @@
 @end
 
 
-@implementation NGTextFieldTableViewCell {
-    UITextField *_textField;
-}
+@implementation NGTextFieldTableViewCell
 
 #pragma mark - Public Properties
 
@@ -70,18 +68,6 @@
     return [_textField resignFirstResponder];
 }
 
-#pragma mark - Overriden (NGNinjaTableViewCell)
-
-- (id)internalStateData
-{
-    return _textField.text;
-}
-
-- (void)setInternalStateData:(id)data
-{
-    _textField.text = data;
-}
-
 #pragma mark - Private Methods
 
 - (void)initializeNGTextFieldTableViewCell
@@ -101,61 +87,57 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellShouldBeginEditing:)] == NO)
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textFieldShouldBeginEditing:)] == NO)
         return YES;
-    return [self.delegate textFieldTableViewCellShouldBeginEditing:self];
+    return [self.delegate textFieldTableViewCell:self textFieldShouldBeginEditing:textField];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
     
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellDidBeginEditing:)] == YES)
-        [self.delegate textFieldTableViewCellDidBeginEditing:self];
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textFieldDidBeginEditing:)] == YES)
+        [self.delegate textFieldTableViewCell:self textFieldDidBeginEditing:textField];
     
     [self notifyDelegateAboutBecamingFirstResponder];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellShouldEndEditing:)] == NO)
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textFieldShouldEndEditing:)] == NO)
         return YES;
-    return [self.delegate textFieldTableViewCellShouldEndEditing:self];
+    return [self.delegate textFieldTableViewCell:self textFieldShouldEndEditing:textField];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:textField];
     
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellDidEndEditing:)] == YES)
-        [self.delegate textFieldTableViewCellDidEndEditing:self];
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textFieldDidEndEditing:)] == YES)
+        [self.delegate textFieldTableViewCell:self textFieldDidEndEditing:textField];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:shouldChangeCharactersInRange:replacementString:)] == NO)
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textField:shouldChangeCharactersInRange:replacementString:)] == NO)
         return YES;
-    return [self.delegate textFieldTableViewCell:self shouldChangeCharactersInRange:range replacementString:string];
+    return [self.delegate textFieldTableViewCell:self textField:textField shouldChangeCharactersInRange:range replacementString:string];
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellShouldClear:)] == NO)
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textFieldShouldClear:)] == NO)
         return YES;
-    return [self.delegate textFieldTableViewCellShouldClear:self];
+    return [self.delegate textFieldTableViewCell:self textFieldShouldClear:textField];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    BOOL shoudStayFirstResponder = NO;
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellShouldStayFirstResponderOnReturn:)] == YES)
-        shoudStayFirstResponder = [self.delegate textFieldTableViewCellShouldStayFirstResponderOnReturn:self];
-    
-    BOOL shouldReturn = YES;
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellShouldReturn:)] == YES)
-        shouldReturn = [self.delegate textFieldTableViewCellShouldReturn:self];
+    BOOL shouldReturn = NO;
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textFieldShouldReturn:)] == YES)
+        shouldReturn = [self.delegate textFieldTableViewCell:self textFieldShouldReturn:textField];
 
-    if (shoudStayFirstResponder == NO) {
+    if (shouldReturn == YES) {
         [textField resignFirstResponder];
         [self notifyDelegateAboutResigningFirstResponder];
     }
@@ -167,8 +149,8 @@
 
 - (void)textFieldTextDidChange:(NSNotification *)notification
 {
-    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCellTextDidChange:)] == YES)
-        [self.delegate textFieldTableViewCellTextDidChange:self];
+    if ([self.delegate respondsToSelector:@selector(textFieldTableViewCell:textFieldTextDidChange:)] == YES)
+        [self.delegate textFieldTableViewCell:self textFieldTextDidChange:notification.object];
 }
 
 @end

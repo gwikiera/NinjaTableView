@@ -11,6 +11,7 @@
 #import "NGPulseCellDemoViewController.h"
 #import "NGCollectionTableViewCellDemoViewController.h"
 #import "NGSectionManagmentDemoViewController.h"
+#import "NGTextFieldCellDemoViewController.h"
 
 @interface NGViewController ()
 
@@ -48,10 +49,15 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-
 - (IBAction)sectionManagmentDemoTapped:(id)sender
 {
     NGSectionManagmentDemoViewController * controller = [[NGSectionManagmentDemoViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)textFieldCellDemoTapped:(id)sender
+{
+    NGTextFieldCellDemoViewController * controller = [[NGTextFieldCellDemoViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
