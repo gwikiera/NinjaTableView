@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D0061D7187C599D00DA77CB /* NGTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0061D4187C599D00DA77CB /* NGTextFieldTableViewCell.m */; };
+		2DAB896C187D94A7007DA484 /* NGTextFieldCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB896A187D94A7007DA484 /* NGTextFieldCellDemoViewController.m */; };
+		2DAB896D187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB896B187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib */; };
 		2E0DE1C01761E4EF0003B217 /* NGResponderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DE1BF1761E4EF0003B217 /* NGResponderTableViewCell.m */; };
 		2E0F6DFC181575D100D98E7E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0F6DFB181575D100D98E7E /* QuartzCore.framework */; };
 		2E42799A17F082A000A532AE /* NGCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E42799917F082A000A532AE /* NGCollectionTableViewCell.m */; };
@@ -37,6 +40,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D0061D3187C599D00DA77CB /* NGTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGTextFieldTableViewCell.h; sourceTree = "<group>"; };
+		2D0061D4187C599D00DA77CB /* NGTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGTextFieldTableViewCell.m; sourceTree = "<group>"; };
+		2D0061D9187C59D200DA77CB /* NGTextFieldTableViewCellSubclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGTextFieldTableViewCellSubclass.h; sourceTree = "<group>"; };
+		2DAB8969187D94A7007DA484 /* NGTextFieldCellDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGTextFieldCellDemoViewController.h; sourceTree = "<group>"; };
+		2DAB896A187D94A7007DA484 /* NGTextFieldCellDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGTextFieldCellDemoViewController.m; sourceTree = "<group>"; };
+		2DAB896B187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NGTextFieldCellDemoViewController.xib; sourceTree = "<group>"; };
 		2E0DE1BE1761E4EF0003B217 /* NGResponderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGResponderTableViewCell.h; sourceTree = "<group>"; };
 		2E0DE1BF1761E4EF0003B217 /* NGResponderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGResponderTableViewCell.m; sourceTree = "<group>"; };
 		2E0F6DFA18156F6200D98E7E /* NGNinjaTableViewCellSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableViewCellSubclass.h; sourceTree = "<group>"; };
@@ -99,6 +108,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2DAB8968187D94A7007DA484 /* Demo-TextFieldCell */ = {
+			isa = PBXGroup;
+			children = (
+				2DAB8969187D94A7007DA484 /* NGTextFieldCellDemoViewController.h */,
+				2DAB896A187D94A7007DA484 /* NGTextFieldCellDemoViewController.m */,
+				2DAB896B187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib */,
+			);
+			path = "Demo-TextFieldCell";
+			sourceTree = "<group>";
+		};
 		2E42799B17F0830900A532AE /* Demo-CollevtionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +174,7 @@
 				2E6E92A516998E010049D832 /* Demo-PulseCell */,
 				AF1F16D517EB2D85000DD38D /* Demo-SectionManagment */,
 				2E42799B17F0830900A532AE /* Demo-CollevtionViewCell */,
+				2DAB8968187D94A7007DA484 /* Demo-TextFieldCell */,
 				2EE9BE9E167FAA90008C1E11 /* NGAppDelegate.h */,
 				2EE9BE9F167FAA90008C1E11 /* NGAppDelegate.m */,
 				2EE9BEA7167FAA90008C1E11 /* NGViewController.h */,
@@ -196,6 +216,9 @@
 				AF1F16D317EB1988000DD38D /* NGNinjaTableView+SectionManagement.m */,
 				2E42799817F082A000A532AE /* NGCollectionTableViewCell.h */,
 				2E42799917F082A000A532AE /* NGCollectionTableViewCell.m */,
+				2D0061D3187C599D00DA77CB /* NGTextFieldTableViewCell.h */,
+				2D0061D4187C599D00DA77CB /* NGTextFieldTableViewCell.m */,
+				2D0061D9187C59D200DA77CB /* NGTextFieldTableViewCellSubclass.h */,
 			);
 			path = NGNinjaTableView;
 			sourceTree = "<group>";
@@ -274,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DAB896D187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib in Resources */,
 				2E4279A017F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.xib in Resources */,
 				2EE9BE9A167FAA90008C1E11 /* InfoPlist.strings in Resources */,
 				2EE9BEA2167FAA90008C1E11 /* Default.png in Resources */,
@@ -299,6 +323,7 @@
 				2EE9BEA9167FAA90008C1E11 /* NGViewController.m in Sources */,
 				2EE9BEC0167FAACD008C1E11 /* NGNinjaTableView.m in Sources */,
 				AF1F16D417EB1988000DD38D /* NGNinjaTableView+SectionManagement.m in Sources */,
+				2D0061D7187C599D00DA77CB /* NGTextFieldTableViewCell.m in Sources */,
 				2EE9BEC1167FAACD008C1E11 /* NGNinjaTableViewCell.m in Sources */,
 				2EE9BEC2167FAACD008C1E11 /* NGPulseTableViewCell.m in Sources */,
 				2E42799A17F082A000A532AE /* NGCollectionTableViewCell.m in Sources */,
@@ -306,6 +331,7 @@
 				2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */,
 				2EE9BED3167FACB0008C1E11 /* NGButtonCell.m in Sources */,
 				2E6E92B016998F680049D832 /* NGPulseCellDemoViewController.m in Sources */,
+				2DAB896C187D94A7007DA484 /* NGTextFieldCellDemoViewController.m in Sources */,
 				2E0DE1C01761E4EF0003B217 /* NGResponderTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

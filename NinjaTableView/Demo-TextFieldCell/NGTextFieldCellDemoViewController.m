@@ -9,23 +9,8 @@
 #import "NGTextFieldCellDemoViewController.h"
 #import "NGTextFieldTableViewCell.h"
 
-@interface NGTextFieldCellDemoViewController ()
 
-@end
-
-@implementation NGTextFieldCellDemoViewController {
-    __weak IBOutlet NGNinjaTableView *_tableView;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    UITableViewController * controller = [[UITableViewController alloc] init];
-    controller.tableView = _tableView;
-    [self addChildViewController:controller];
-    [controller didMoveToParentViewController:self];
-}
+@implementation NGTextFieldCellDemoViewController
 
 #pragma mark - UITableViewDataSource
 
@@ -42,6 +27,8 @@
         cell = [[NGTextFieldTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.textField.text = [NSString stringWithFormat:@"Index path: %d %d", indexPath.section, indexPath.row];
+
     return cell;
 }
 
@@ -52,6 +39,23 @@
     NSIndexPath * nextCellIndexPath = [NSIndexPath indexPathForRow:cell.indexPath.row+1 inSection:cell.indexPath.section];
     NGResponderTableViewCell * nextCell = (NGResponderTableViewCell *)[cell.tableView cellForRowAtIndexPath:nextCellIndexPath];
     [nextCell becomeFirstResponder];
+}
+
+#pragma mark - NGTextFieldTableViewCellDelegate
+
+- (BOOL)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldShouldReturn:(UITextField *)textField
+{
+    return YES;
+}
+
+- (void)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldDidBeginEditing:(UITextField *)textField
+{
+    NSLog(@"TextField %@ in cell at index path : %@ did begin editing", textField, textFieldTableViewCell.indexPath);
+}
+
+- (void)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldDidEndEditing:(UITextField *)textField
+{
+    NSLog(@"TextField %@ in cell at index path : %@ did end editing", textField, textFieldTableViewCell.indexPath);
 }
 
 @end

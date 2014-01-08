@@ -29,20 +29,22 @@
 
 @optional
 
-- (BOOL)textFieldTableViewCellShouldBeginEditing:(NGTextFieldTableViewCell *)textFieldTableViewCell;        // return NO to disallow editing.
-- (void)textFieldTableViewCellDidBeginEditing:(NGTextFieldTableViewCell *)textFieldTableViewCell;           // became first responder
-- (BOOL)textFieldTableViewCellShouldEndEditing:(NGTextFieldTableViewCell *)textFieldTableViewCell;          // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-- (void)textFieldTableViewCellDidEndEditing:(NGTextFieldTableViewCell *)textFieldTableViewCell;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-- (BOOL)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
-- (BOOL)textFieldTableViewCellShouldClear:(NGTextFieldTableViewCell *)textFieldTableViewCell;               // called when clear button pressed. return NO to ignore (no notifications)
-- (BOOL)textFieldTableViewCellShouldReturn:(NGTextFieldTableViewCell *)textFieldTableViewCell;              // called when 'return' key pressed. return NO to ignore.a
-- (void)textFieldTableViewCellTextDidChange:(NGTextFieldTableViewCell *)textFieldTableViewCell;
-- (BOOL)textFieldTableViewCellShouldStayFirstResponderOnReturn:(NGTextFieldTableViewCell *)textFieldTableViewCell;    //
+- (BOOL)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldShouldBeginEditing:(UITextField *)textField;        // return NO to disallow editing.
+- (void)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldDidBeginEditing:(UITextField *)textField;           // became first responder
+- (BOOL)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldShouldEndEditing:(UITextField *)textField;          // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
+- (void)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldDidEndEditing:(UITextField *)textField;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
+- (BOOL)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
+- (BOOL)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldShouldClear:(UITextField *)textField;               // called when clear button pressed. return NO to ignore (no notifications)
+- (BOOL)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldShouldReturn:(UITextField *)textField;              // called when 'return' key pressed. return NO to ignore
+- (void)textFieldTableViewCell:(NGTextFieldTableViewCell *)textFieldTableViewCell textFieldTextDidChange:(UITextField *)textField;
 
 @end
 
 
-@interface NGTextFieldTableViewCell : NGResponderTableViewCell
+@interface NGTextFieldTableViewCell : NGResponderTableViewCell {
+    @protected
+    UITextField *_textField;
+}
 
 @property (strong, nonatomic, readonly) UITextField * textField;
 

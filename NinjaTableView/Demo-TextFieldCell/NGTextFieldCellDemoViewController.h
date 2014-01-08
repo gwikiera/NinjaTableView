@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NGTextFieldCellDemoViewController : UIViewController
+@interface NGTextFieldCellDemoViewController : UITableViewController
 
 @end
