@@ -15,8 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                    <rect key="frame" x="20" y="100" width="280" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                    <rect key="frame" x="20" y="100" width="281" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button Cell Demo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -25,8 +25,8 @@
                         <action selector="buttonCellDemoTapped:" destination="-1" eventType="touchUpInside" id="12"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dep-MH-iwV">
-                    <rect key="frame" x="20" y="138" width="280" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dep-MH-iwV">
+                    <rect key="frame" x="20" y="138" width="281" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Collection Cell Demo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,8 +35,8 @@
                         <action selector="collectionCellDemoTapped:" destination="-1" eventType="touchUpInside" id="b8h-kB-aiL"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Sk-QX-MbF">
-                    <rect key="frame" x="20" y="176" width="280" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Sk-QX-MbF">
+                    <rect key="frame" x="20" y="176" width="281" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Section Managment Demo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -45,8 +45,8 @@
                         <action selector="sectionManagmentDemoTapped:" destination="-1" eventType="touchUpInside" id="EoK-Fh-cp9"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNM-tm-pky">
-                    <rect key="frame" x="20" y="214" width="280" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNM-tm-pky">
+                    <rect key="frame" x="20" y="214" width="281" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="TextField Cell Demo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,17 +55,30 @@
                         <action selector="textFieldCellDemoTapped:" destination="-1" eventType="touchUpInside" id="3F5-wq-fWW"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2T-Uc-zdV">
+                    <rect key="frame" x="19" y="252" width="281" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="TextView Cell Demo">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="textViewCellDemoTapped:" destination="-1" eventType="touchUpInside" id="ewh-aU-ZI0"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="8" firstAttribute="top" secondItem="6" secondAttribute="top" constant="100" id="5SF-Uj-szh"/>
                 <constraint firstItem="0Sk-QX-MbF" firstAttribute="trailing" secondItem="dep-MH-iwV" secondAttribute="trailing" id="7GV-BT-GOl"/>
                 <constraint firstItem="yNM-tm-pky" firstAttribute="top" secondItem="0Sk-QX-MbF" secondAttribute="bottom" constant="8" symbolic="YES" id="9CH-xt-neZ"/>
+                <constraint firstItem="b2T-Uc-zdV" firstAttribute="top" secondItem="yNM-tm-pky" secondAttribute="bottom" constant="8" symbolic="YES" id="MR1-Yp-Bdc"/>
+                <constraint firstItem="b2T-Uc-zdV" firstAttribute="trailing" secondItem="yNM-tm-pky" secondAttribute="trailing" constant="-1" id="RnI-EO-cU1"/>
                 <constraint firstItem="dep-MH-iwV" firstAttribute="leading" secondItem="0Sk-QX-MbF" secondAttribute="leading" id="T7v-A8-7ba"/>
                 <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="UDW-gH-RAc"/>
                 <constraint firstItem="dep-MH-iwV" firstAttribute="leading" secondItem="8" secondAttribute="leading" id="bDC-K7-8FB"/>
                 <constraint firstItem="0Sk-QX-MbF" firstAttribute="trailing" secondItem="yNM-tm-pky" secondAttribute="trailing" id="bba-pf-4qE"/>
                 <constraint firstItem="yNM-tm-pky" firstAttribute="leading" secondItem="0Sk-QX-MbF" secondAttribute="leading" id="bxO-yp-3Ix"/>
+                <constraint firstItem="b2T-Uc-zdV" firstAttribute="leading" secondItem="yNM-tm-pky" secondAttribute="leading" constant="-1" id="esZ-Mj-fy0"/>
                 <constraint firstItem="8" firstAttribute="trailing" secondItem="dep-MH-iwV" secondAttribute="trailing" id="qbF-bw-1YP"/>
                 <constraint firstItem="dep-MH-iwV" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="8" symbolic="YES" id="t5H-az-fW9"/>
                 <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" symbolic="YES" id="t6v-Vd-mPr"/>

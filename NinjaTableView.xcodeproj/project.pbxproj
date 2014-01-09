@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2D0061D7187C599D00DA77CB /* NGTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0061D4187C599D00DA77CB /* NGTextFieldTableViewCell.m */; };
+		2D45AA64187D9E8500F26406 /* NGTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D45AA63187D9E8500F26406 /* NGTextViewTableViewCell.m */; };
+		2D45AA6A187DA36200F26406 /* NGTextViewCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D45AA68187DA36200F26406 /* NGTextViewCellDemoViewController.m */; };
+		2D45AA6B187DA36200F26406 /* NGTextViewCellDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D45AA69187DA36200F26406 /* NGTextViewCellDemoViewController.xib */; };
 		2DAB896C187D94A7007DA484 /* NGTextFieldCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB896A187D94A7007DA484 /* NGTextFieldCellDemoViewController.m */; };
 		2DAB896D187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DAB896B187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib */; };
 		2E0DE1C01761E4EF0003B217 /* NGResponderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DE1BF1761E4EF0003B217 /* NGResponderTableViewCell.m */; };
@@ -40,6 +43,12 @@
 		2D0061D3187C599D00DA77CB /* NGTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGTextFieldTableViewCell.h; sourceTree = "<group>"; };
 		2D0061D4187C599D00DA77CB /* NGTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGTextFieldTableViewCell.m; sourceTree = "<group>"; };
 		2D0061D9187C59D200DA77CB /* NGTextFieldTableViewCellSubclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGTextFieldTableViewCellSubclass.h; sourceTree = "<group>"; };
+		2D45AA62187D9E8500F26406 /* NGTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGTextViewTableViewCell.h; sourceTree = "<group>"; };
+		2D45AA63187D9E8500F26406 /* NGTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGTextViewTableViewCell.m; sourceTree = "<group>"; };
+		2D45AA65187D9EB200F26406 /* NGTextViewTableViewCellSubclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGTextViewTableViewCellSubclass.h; sourceTree = "<group>"; };
+		2D45AA67187DA36200F26406 /* NGTextViewCellDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGTextViewCellDemoViewController.h; sourceTree = "<group>"; };
+		2D45AA68187DA36200F26406 /* NGTextViewCellDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGTextViewCellDemoViewController.m; sourceTree = "<group>"; };
+		2D45AA69187DA36200F26406 /* NGTextViewCellDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NGTextViewCellDemoViewController.xib; sourceTree = "<group>"; };
 		2DAB8969187D94A7007DA484 /* NGTextFieldCellDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGTextFieldCellDemoViewController.h; sourceTree = "<group>"; };
 		2DAB896A187D94A7007DA484 /* NGTextFieldCellDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGTextFieldCellDemoViewController.m; sourceTree = "<group>"; };
 		2DAB896B187D94A7007DA484 /* NGTextFieldCellDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NGTextFieldCellDemoViewController.xib; sourceTree = "<group>"; };
@@ -100,6 +109,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D45AA66187DA34400F26406 /* Demo-TextViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2D45AA67187DA36200F26406 /* NGTextViewCellDemoViewController.h */,
+				2D45AA68187DA36200F26406 /* NGTextViewCellDemoViewController.m */,
+				2D45AA69187DA36200F26406 /* NGTextViewCellDemoViewController.xib */,
+			);
+			path = "Demo-TextViewCell";
+			sourceTree = "<group>";
+		};
 		2DAB8968187D94A7007DA484 /* Demo-TextFieldCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +175,7 @@
 				AF1F16D517EB2D85000DD38D /* Demo-SectionManagment */,
 				2E42799B17F0830900A532AE /* Demo-CollevtionViewCell */,
 				2DAB8968187D94A7007DA484 /* Demo-TextFieldCell */,
+				2D45AA66187DA34400F26406 /* Demo-TextViewCell */,
 				2EE9BE9E167FAA90008C1E11 /* NGAppDelegate.h */,
 				2EE9BE9F167FAA90008C1E11 /* NGAppDelegate.m */,
 				2EE9BEA7167FAA90008C1E11 /* NGViewController.h */,
@@ -198,6 +218,9 @@
 				2D0061D3187C599D00DA77CB /* NGTextFieldTableViewCell.h */,
 				2D0061D4187C599D00DA77CB /* NGTextFieldTableViewCell.m */,
 				2D0061D9187C59D200DA77CB /* NGTextFieldTableViewCellSubclass.h */,
+				2D45AA62187D9E8500F26406 /* NGTextViewTableViewCell.h */,
+				2D45AA63187D9E8500F26406 /* NGTextViewTableViewCell.m */,
+				2D45AA65187D9EB200F26406 /* NGTextViewTableViewCellSubclass.h */,
 			);
 			path = NGNinjaTableView;
 			sourceTree = "<group>";
@@ -282,6 +305,7 @@
 				2EE9BEA2167FAA90008C1E11 /* Default.png in Resources */,
 				2EE9BEA4167FAA90008C1E11 /* Default@2x.png in Resources */,
 				2EE9BEA6167FAA90008C1E11 /* Default-568h@2x.png in Resources */,
+				2D45AA6B187DA36200F26406 /* NGTextViewCellDemoViewController.xib in Resources */,
 				2EE9BEAC167FAA90008C1E11 /* NGViewController.xib in Resources */,
 				2EE9BED0167FAC3A008C1E11 /* NGButtonCellDemoViewController.xib in Resources */,
 				AF1F16DA17EB2DB7000DD38D /* NGSectionManagmentDemoViewController.xib in Resources */,
@@ -303,11 +327,14 @@
 				AF1F16D417EB1988000DD38D /* NGNinjaTableView+SectionManagement.m in Sources */,
 				2D0061D7187C599D00DA77CB /* NGTextFieldTableViewCell.m in Sources */,
 				2EE9BEC1167FAACD008C1E11 /* NGNinjaTableViewCell.m in Sources */,
+				2D45AA6A187DA36200F26406 /* NGTextViewCellDemoViewController.m in Sources */,
+				2EE9BEC2167FAACD008C1E11 /* NGPulseTableViewCell.m in Sources */,
 				2E42799A17F082A000A532AE /* NGCollectionTableViewCell.m in Sources */,
 				AF1F16D917EB2DB7000DD38D /* NGSectionManagmentDemoViewController.m in Sources */,
 				2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */,
 				2EE9BED3167FACB0008C1E11 /* NGButtonCell.m in Sources */,
 				2DAB896C187D94A7007DA484 /* NGTextFieldCellDemoViewController.m in Sources */,
+				2D45AA64187D9E8500F26406 /* NGTextViewTableViewCell.m in Sources */,
 				2E0DE1C01761E4EF0003B217 /* NGResponderTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
