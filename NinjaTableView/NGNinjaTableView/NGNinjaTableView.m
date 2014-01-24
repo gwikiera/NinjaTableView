@@ -99,8 +99,6 @@
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)] == YES)
         [self.tableViewDelegate scrollViewWillBeginDragging:scrollView];
-    
-    [scrollView endEditing:YES];
 }
 
 @end
