@@ -28,7 +28,6 @@
 		2EE9BEA4167FAA90008C1E11 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE9BEA3167FAA90008C1E11 /* Default@2x.png */; };
 		2EE9BEA6167FAA90008C1E11 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE9BEA5167FAA90008C1E11 /* Default-568h@2x.png */; };
 		2EE9BEA9167FAA90008C1E11 /* NGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9BEA8167FAA90008C1E11 /* NGViewController.m */; };
-		2EE9BEAC167FAA90008C1E11 /* NGViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EE9BEAA167FAA90008C1E11 /* NGViewController.xib */; };
 		2EE9BEC0167FAACD008C1E11 /* NGNinjaTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9BEBA167FAACD008C1E11 /* NGNinjaTableView.m */; };
 		2EE9BEC1167FAACD008C1E11 /* NGNinjaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9BEBC167FAACD008C1E11 /* NGNinjaTableViewCell.m */; };
 		2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9BECD167FAC3A008C1E11 /* NGButtonCellDemoViewController.m */; };
@@ -76,7 +75,6 @@
 		2EE9BEA5167FAA90008C1E11 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2EE9BEA7167FAA90008C1E11 /* NGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGViewController.h; sourceTree = "<group>"; };
 		2EE9BEA8167FAA90008C1E11 /* NGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NGViewController.m; sourceTree = "<group>"; };
-		2EE9BEAB167FAA90008C1E11 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NGViewController.xib; sourceTree = "<group>"; };
 		2EE9BEB9167FAACD008C1E11 /* NGNinjaTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableView.h; sourceTree = "<group>"; };
 		2EE9BEBA167FAACD008C1E11 /* NGNinjaTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGNinjaTableView.m; sourceTree = "<group>"; };
 		2EE9BEBB167FAACD008C1E11 /* NGNinjaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableViewCell.h; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 				2EE9BE9F167FAA90008C1E11 /* NGAppDelegate.m */,
 				2EE9BEA7167FAA90008C1E11 /* NGViewController.h */,
 				2EE9BEA8167FAA90008C1E11 /* NGViewController.m */,
-				2EE9BEAA167FAA90008C1E11 /* NGViewController.xib */,
 				2EE9BE96167FAA90008C1E11 /* Supporting Files */,
 			);
 			path = NinjaTableView;
@@ -306,7 +303,6 @@
 				2EE9BEA4167FAA90008C1E11 /* Default@2x.png in Resources */,
 				2EE9BEA6167FAA90008C1E11 /* Default-568h@2x.png in Resources */,
 				2D45AA6B187DA36200F26406 /* NGTextViewCellDemoViewController.xib in Resources */,
-				2EE9BEAC167FAA90008C1E11 /* NGViewController.xib in Resources */,
 				2EE9BED0167FAC3A008C1E11 /* NGButtonCellDemoViewController.xib in Resources */,
 				AF1F16DA17EB2DB7000DD38D /* NGSectionManagmentDemoViewController.xib in Resources */,
 			);
@@ -328,7 +324,6 @@
 				2D0061D7187C599D00DA77CB /* NGTextFieldTableViewCell.m in Sources */,
 				2EE9BEC1167FAACD008C1E11 /* NGNinjaTableViewCell.m in Sources */,
 				2D45AA6A187DA36200F26406 /* NGTextViewCellDemoViewController.m in Sources */,
-				2EE9BEC2167FAACD008C1E11 /* NGPulseTableViewCell.m in Sources */,
 				2E42799A17F082A000A532AE /* NGCollectionTableViewCell.m in Sources */,
 				AF1F16D917EB2DB7000DD38D /* NGSectionManagmentDemoViewController.m in Sources */,
 				2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */,
@@ -348,14 +343,6 @@
 				2EE9BE99167FAA90008C1E11 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		2EE9BEAA167FAA90008C1E11 /* NGViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2EE9BEAB167FAA90008C1E11 /* en */,
-			);
-			name = NGViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

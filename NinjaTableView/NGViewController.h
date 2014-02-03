@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NGViewController : UIViewController
+@interface NGViewController : UITableViewController
 
 @end
