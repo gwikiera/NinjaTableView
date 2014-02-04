@@ -37,34 +37,16 @@
 
 #pragma mark - Overriden
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self){
-        [self initialize];
-    }
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
-{
-    self = [super initWithFrame:frame style:style];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
 - (void)setDelegate:(id<UITableViewDelegate>)delegate
 {
-    self.delegateSurrogate.proxiedObject = delegate;
-    [super setDelegate:(id <UITableViewDelegate>)self.delegateSurrogate];
+    _delegateSurrogate = [[NGNinjaTableViewDelegateSurrogate alloc] initWithProxiedObject:delegate andTableView:self];
+    [super setDelegate:_delegateSurrogate];
 }
 
 - (void)setDataSource:(id<UITableViewDataSource>)dataSource
 {
-    self.dataSourceSurrogate.proxiedObject = dataSource;
-    [super setDataSource:(id<UITableViewDataSource>)self.dataSourceSurrogate];
+    _dataSourceSurrogate = [[NGNinjaTableViewDataSourceSurrogate alloc] initWithProxiedObject:dataSource andTableView:self];
+    [super setDataSource:_dataSourceSurrogate];
 }
 
 #pragma mark - Instance Methods
@@ -80,16 +62,6 @@
 - (id)dataForIndexPath:(NSIndexPath *)indexPath
 {
     return [self.cellData objectForKey:indexPath];
-}
-
-#pragma mark - Private Methods
-
-- (void)initialize
-{
-    _delegateSurrogate = [[NGNinjaTableViewDelegateSurrogate alloc] initWithProxiedObject:nil];
-    _dataSourceSurrogate = [[NGNinjaTableViewDataSourceSurrogate alloc] initWithProxiedObject:nil];
-    _dataSourceSurrogate.ninjaTableView = self;
-    _delegateSurrogate.ninjaTableView = self;
 }
 
 #pragma mark - Private Properties
