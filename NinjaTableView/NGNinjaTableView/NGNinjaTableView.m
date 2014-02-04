@@ -95,12 +95,6 @@
         [cell performSelector:@selector(didDisappearFromRowAtIndexPath:) withObject:indexPath];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)] == YES)
-        [self.tableViewDelegate scrollViewWillBeginDragging:scrollView];
-}
-
 @end
 
 
