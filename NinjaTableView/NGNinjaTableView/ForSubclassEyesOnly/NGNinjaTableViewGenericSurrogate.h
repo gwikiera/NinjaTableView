@@ -11,8 +11,8 @@
 @class NGNinjaTableView;
 
 @interface NGNinjaTableViewGenericSurrogate : NSProxy
-@property (weak, nonatomic) NGNinjaTableView * ninjaTableView;
-@property (weak, nonatomic) id proxiedObject;
+@property (weak, nonatomic, readonly) NGNinjaTableView * ninjaTableView;
+@property (weak, nonatomic, readonly) id proxiedObject;
 
-- (instancetype)initWithProxiedObject:(id)proxiedObject;
+- (instancetype)initWithProxiedObject:(id)proxiedObject andTableView:(NGNinjaTableView *)ninjaTableView;
 @end

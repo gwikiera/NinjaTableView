@@ -12,9 +12,12 @@
 
 #pragma mark - Interface Methods
 
-- (instancetype)initWithProxiedObject:(id)proxiedObject
+- (instancetype)initWithProxiedObject:(id)proxiedObject andTableView:(NGNinjaTableView *)ninjaTableView
 {
+    if (proxiedObject == nil || ninjaTableView == nil) return nil;  // nil propagation
+    
     _proxiedObject = proxiedObject;
+    _ninjaTableView = ninjaTableView;
     return self;
 }
 
