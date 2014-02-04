@@ -16,7 +16,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    NGViewController * viewController = [[NGViewController alloc] initWithNibName:@"NGViewController" bundle:nil];
+    NGViewController * viewController = [[NGViewController alloc] initWithNibName:nil bundle:nil];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     self.viewController = navigationController;
     self.window.rootViewController = self.viewController;

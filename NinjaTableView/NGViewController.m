@@ -8,51 +8,89 @@
 
 #import "NGViewController.h"
 #import "NGButtonCellDemoViewController.h"
-#import "NGPulseCellDemoViewController.h"
 #import "NGCollectionTableViewCellDemoViewController.h"
 #import "NGSectionManagmentDemoViewController.h"
+#import "NGTextFieldCellDemoViewController.h"
+#import "NGTextViewCellDemoViewController.h"
+
+
+static const NSString * demoViewControllerTitleKey = @"demoViewControllerTitleKey";
+static const NSString * demoViewControllerClassKey = @"demoViewControllerClassKey";
+
 
 @interface NGViewController ()
 
+@property (copy, nonatomic) NSArray * demosViewControllers;
+
 @end
 
+
 @implementation NGViewController
+
+#pragma mark - Overriden
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    self.title = @"Ninja Table View Demos";
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Private Properties
+
+- (NSArray *)demosViewControllers
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if (_demosViewControllers == nil) {
+        _demosViewControllers = @[
+                                  @{demoViewControllerTitleKey : @"Button Cell Demo",  demoViewControllerClassKey : [NGButtonCellDemoViewController class]},
+                                  @{demoViewControllerTitleKey : @"Collection Cell Demo", demoViewControllerClassKey : [NGCollectionTableViewCellDemoViewController class]},
+                                  @{demoViewControllerTitleKey : @"Section Managment Cell Demo", demoViewControllerClassKey : [NGSectionManagmentDemoViewController class]},
+                                  @{demoViewControllerTitleKey : @"TextField Cell Demo", demoViewControllerClassKey : [NGTextFieldCellDemoViewController class]},
+                                  @{demoViewControllerTitleKey : @"TextView Cell Demo", demoViewControllerClassKey : [NGTextViewCellDemoViewController class]},
+                                  ];
+    }
+    return _demosViewControllers;
 }
 
-- (IBAction)buttonCellDemoTapped:(id)sender
+#pragma mark - Private Methods
+
+- (NSString *)titleOfDemoViewControllerForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NGButtonCellDemoViewController * controller = [[NGButtonCellDemoViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    return self.demosViewControllers[indexPath.row][demoViewControllerTitleKey];
 }
 
-- (IBAction)pulseCellDemoTapped:(id)sender
+- (UIViewController *)demoViewControllerForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NGPulseCellDemoViewController * controller = [[NGPulseCellDemoViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    Class demoViewControllerClass = self.demosViewControllers[indexPath.row][demoViewControllerClassKey];
+    UIViewController * viewController = [[demoViewControllerClass alloc] initWithNibName:nil bundle:nil];
+    viewController.title = [self titleOfDemoViewControllerForRowAtIndexPath:indexPath];
+    return viewController;
 }
 
-- (IBAction)collectionCellDemoTapped:(id)sender
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NGCollectionTableViewCellDemoViewController * controller = [[NGCollectionTableViewCellDemoViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    return self.demosViewControllers.count;
 }
 
+#pragma mark - UITableViewDelegate
 
-- (IBAction)sectionManagmentDemoTapped:(id)sender
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    NGSectionManagmentDemoViewController * controller = [[NGSectionManagmentDemoViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    static NSString * cellIdentifier = @"CellIndentifier";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    cell.textLabel.text = [self titleOfDemoViewControllerForRowAtIndexPath:indexPath];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIViewController * viewController = [self demoViewControllerForRowAtIndexPath:indexPath];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

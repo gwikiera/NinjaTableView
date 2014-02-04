@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Wojciech Nagrodzki
+ * Copyright (c) 2013 Wojciech Nagrodzki
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +20,8 @@
  * THE SOFTWARE.
  */
 
-#import <UIKit/UIKit.h>
-#import "NGNinjaTableView.h"
+@interface NGTextFieldTableViewCell (ForSubclassEyesOnly) <UITextFieldDelegate>
 
-
-/**
- * NGNinjaTableViewCell provides convenient propertes to access table view, table view delegate and index path locating the cell.
- * It also delivers convenient template methods for getting and setting cell internal state.
- */
-@interface NGNinjaTableViewCell : UITableViewCell
-
-/**
- * Delegate of the cell (actually tableView delegate).
- */
-@property (nonatomic, readonly) id delegate;
-
-/**
- * Index path locating a row in table view where the cell is displayed, or nil if it is not displayed.
- */
-@property (nonatomic, readonly) NSIndexPath * indexPath;
-
-/**
- * NGNinjaTableView in which the cell lies.
- */
-@property (nonatomic, readonly) NGNinjaTableView * tableView;
+- (void)initializeNGTextFieldTableViewCell;
 
 @end
