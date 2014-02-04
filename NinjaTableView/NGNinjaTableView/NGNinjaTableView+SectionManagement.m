@@ -23,6 +23,7 @@
 #import "NGNinjaTableView+SectionManagement.h"
 #import "NGNinjaTableViewSubclass.h"
 #import <objc/runtime.h>
+#import <QuartzCore/QuartzCore.h>
 
 void *foldedSectionsMutableIndexSetKey = &foldedSectionsMutableIndexSetKey;
 void *hiddenSectionsMutableIndexSetKey = &hiddenSectionsMutableIndexSetKey;
