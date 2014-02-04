@@ -44,11 +44,17 @@
 
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
+    if ([self.class instancesRespondToSelector:aSelector] == YES) return YES;
+    
     return [self.proxiedObject respondsToSelector:aSelector];
 }
 
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)selector
 {
+    if ([self.class instancesRespondToSelector:selector] == YES) {
+        return [self.class instanceMethodSignatureForSelector:selector];
+    }
+    
     return [self.proxiedObject methodSignatureForSelector:selector];
 }
 
