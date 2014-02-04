@@ -9,7 +9,7 @@
 @class NGNinjaTableViewDataSourceSurrogate;
 @class NGNinjaTableViewDelegateSurrogate;
 
-@interface NGNinjaTableView(ForSubclassingEyesOnly)
+@interface NGNinjaTableView(ForSubclassEyesOnly)
 
 @property (strong, nonatomic) NSMutableDictionary * cellData;
 @property (strong, nonatomic) NGNinjaTableViewDataSourceSurrogate * dataSourceSurrogate;

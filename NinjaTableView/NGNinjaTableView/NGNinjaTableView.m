@@ -21,93 +21,14 @@
  */
 
 #import "NGNinjaTableView.h"
-
-
-@interface NGNinjaTableViewDelegateAndDataSourceSurrogate()
-
-@property (weak, nonatomic) NSObject<UITableViewDelegate>* tableViewDelegate;
-@property (weak, nonatomic) NSObject<UITableViewDataSource>* tableViewDataSource;
-@property (weak, nonatomic) NGNinjaTableView * ninjaTableView;
-
-@end
-
-
-@implementation NGNinjaTableViewDelegateAndDataSourceSurrogate
-
-#pragma mark - Overriden
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation
-{
-    id target = nil;
-    if ([self.tableViewDelegate respondsToSelector:anInvocation.selector]) {
-        target = self.tableViewDelegate;
-    }
-    else if ([self.tableViewDataSource respondsToSelector:anInvocation.selector]) {
-        target = self.tableViewDataSource;
-    }
-    
-    if (target != nil) {
-        [anInvocation invokeWithTarget:target];
-        return;
-    }
-    
-    [super forwardInvocation:anInvocation];
-}
-
-- (BOOL)respondsToSelector:(SEL)aSelector
-{
-    if ([super respondsToSelector:aSelector] == YES)
-        return YES;
-    
-    return [self.tableViewDelegate respondsToSelector:aSelector] || [self.tableViewDataSource respondsToSelector:aSelector];
-}
-
-- (NSMethodSignature*)methodSignatureForSelector:(SEL)selector
-{
-    NSMethodSignature* signature = [super methodSignatureForSelector:selector];
-    if ([self.tableViewDelegate respondsToSelector:selector]) {
-        signature = [self.tableViewDelegate methodSignatureForSelector:selector];
-    }
-    else if ([self.tableViewDataSource respondsToSelector:selector]) {
-        signature = [self.tableViewDataSource methodSignatureForSelector:selector];
-    }
-    
-    return signature;
-}
-
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)] == YES)
-        [self.tableViewDelegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
-    
-    if ([cell respondsToSelector:@selector(willAppearInRowAtIndexPath:)])
-        [cell performSelector:@selector(willAppearInRowAtIndexPath:) withObject:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:didEndDisplayingCell:forRowAtIndexPath:)] == YES)
-        [self.tableViewDelegate tableView:tableView didEndDisplayingCell:cell forRowAtIndexPath:indexPath];
-    
-    if ([cell respondsToSelector:@selector(didDisappearFromRowAtIndexPath:)])
-        [cell performSelector:@selector(didDisappearFromRowAtIndexPath:) withObject:indexPath];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)] == YES)
-        [self.tableViewDelegate scrollViewWillBeginDragging:scrollView];
-}
-
-@end
-
+#import "NGNinjaTableViewDataSourceSurrogate.h"
+#import "NGNinjaTableViewDelegateSurrogate.h"
 
 @interface NGNinjaTableView ()
 
 @property (strong, nonatomic) NSMutableDictionary * cellData;
-@property (strong, nonatomic) NGNinjaTableViewDelegateAndDataSourceSurrogate * delegateAndDataSourceSurrogate;
+@property (strong, nonatomic) NGNinjaTableViewDataSourceSurrogate * dataSourceSurrogate;
+@property (strong, nonatomic) NGNinjaTableViewDelegateSurrogate * delegateSurrogate;
 
 @end
 
@@ -136,14 +57,14 @@
 
 - (void)setDelegate:(id<UITableViewDelegate>)delegate
 {
-    self.delegateAndDataSourceSurrogate.tableViewDelegate = delegate;
-    [super setDelegate:(id <UITableViewDelegate>)self.delegateAndDataSourceSurrogate];
+    self.delegateSurrogate.proxiedObject = delegate;
+    [super setDelegate:(id <UITableViewDelegate>)self.delegateSurrogate];
 }
 
 - (void)setDataSource:(id<UITableViewDataSource>)dataSource
 {
-    self.delegateAndDataSourceSurrogate.tableViewDataSource = dataSource;
-    [super setDataSource:(id<UITableViewDataSource>)self.delegateAndDataSourceSurrogate];
+    self.dataSourceSurrogate.proxiedObject = dataSource;
+    [super setDataSource:(id<UITableViewDataSource>)self.dataSourceSurrogate];
 }
 
 #pragma mark - Instance Methods
@@ -165,8 +86,10 @@
 
 - (void)initialize
 {
-    _delegateAndDataSourceSurrogate = [[NGNinjaTableViewDelegateAndDataSourceSurrogate alloc] init];
-    _delegateAndDataSourceSurrogate.ninjaTableView = self;
+    _delegateSurrogate = [[NGNinjaTableViewDelegateSurrogate alloc] initWithProxiedObject:nil];
+    _dataSourceSurrogate = [[NGNinjaTableViewDataSourceSurrogate alloc] initWithProxiedObject:nil];
+    _dataSourceSurrogate.ninjaTableView = self;
+    _delegateSurrogate.ninjaTableView = self;
 }
 
 #pragma mark - Private Properties

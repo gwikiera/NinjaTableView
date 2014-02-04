@@ -64,8 +64,3 @@
 - (id)dataForIndexPath:(NSIndexPath *)indexPath;
 
 @end
-
-
-// other required defines
-@interface NGNinjaTableViewDelegateAndDataSourceSurrogate: NSObject
-@end
