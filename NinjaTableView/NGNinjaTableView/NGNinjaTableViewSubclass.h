@@ -6,19 +6,13 @@
 //  Copyright (c) 2013 Krzysztof Profic. All rights reserved.
 //
 
-
-@interface NGNinjaTableViewDelegateAndDataSourceSurrogate(ForSubclassingEyesOnly)<UITableViewDelegate, UITableViewDataSource>
-
-@property (weak, nonatomic) NSObject<UITableViewDelegate>* tableViewDelegate;
-@property (weak, nonatomic) NSObject<UITableViewDataSource>* tableViewDataSource;
-@property (weak, nonatomic) NGNinjaTableView * ninjaTableView;
-
-@end
-
+@class NGNinjaTableViewDataSourceSurrogate;
+@class NGNinjaTableViewDelegateSurrogate;
 
 @interface NGNinjaTableView(ForSubclassingEyesOnly)
 
 @property (strong, nonatomic) NSMutableDictionary * cellData;
-@property (strong, nonatomic) NGNinjaTableViewDelegateAndDataSourceSurrogate * delegateAndDataSourceSurrogate;
+@property (strong, nonatomic) NGNinjaTableViewDataSourceSurrogate * dataSourceSurrogate;
+@property (strong, nonatomic) NGNinjaTableViewDelegateSurrogate * delegateSurrogate;
 
 @end

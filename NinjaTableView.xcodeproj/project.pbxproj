@@ -36,6 +36,9 @@
 		AF1F16D417EB1988000DD38D /* NGNinjaTableView+SectionManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1F16D317EB1988000DD38D /* NGNinjaTableView+SectionManagement.m */; };
 		AF1F16D917EB2DB7000DD38D /* NGSectionManagmentDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1F16D717EB2DB7000DD38D /* NGSectionManagmentDemoViewController.m */; };
 		AF1F16DA17EB2DB7000DD38D /* NGSectionManagmentDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF1F16D817EB2DB7000DD38D /* NGSectionManagmentDemoViewController.xib */; };
+		AF8DB63418A0F9ED0072031B /* NGNinjaTableViewGenericSurrogate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8DB63318A0F9ED0072031B /* NGNinjaTableViewGenericSurrogate.m */; };
+		AF8DB63718A0FD2F0072031B /* NGNinjaTableViewDataSourceSurrogate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8DB63618A0FD2F0072031B /* NGNinjaTableViewDataSourceSurrogate.m */; };
+		AF8DB63A18A0FD800072031B /* NGNinjaTableViewDelegateSurrogate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8DB63918A0FD800072031B /* NGNinjaTableViewDelegateSurrogate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +93,12 @@
 		AF1F16D617EB2DB7000DD38D /* NGSectionManagmentDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGSectionManagmentDemoViewController.h; sourceTree = "<group>"; };
 		AF1F16D717EB2DB7000DD38D /* NGSectionManagmentDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGSectionManagmentDemoViewController.m; sourceTree = "<group>"; };
 		AF1F16D817EB2DB7000DD38D /* NGSectionManagmentDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NGSectionManagmentDemoViewController.xib; sourceTree = "<group>"; };
+		AF8DB63218A0F9ED0072031B /* NGNinjaTableViewGenericSurrogate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableViewGenericSurrogate.h; sourceTree = "<group>"; };
+		AF8DB63318A0F9ED0072031B /* NGNinjaTableViewGenericSurrogate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGNinjaTableViewGenericSurrogate.m; sourceTree = "<group>"; };
+		AF8DB63518A0FD2F0072031B /* NGNinjaTableViewDataSourceSurrogate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableViewDataSourceSurrogate.h; sourceTree = "<group>"; };
+		AF8DB63618A0FD2F0072031B /* NGNinjaTableViewDataSourceSurrogate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGNinjaTableViewDataSourceSurrogate.m; sourceTree = "<group>"; };
+		AF8DB63818A0FD800072031B /* NGNinjaTableViewDelegateSurrogate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGNinjaTableViewDelegateSurrogate.h; sourceTree = "<group>"; };
+		AF8DB63918A0FD800072031B /* NGNinjaTableViewDelegateSurrogate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGNinjaTableViewDelegateSurrogate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +227,12 @@
 				2D45AA62187D9E8500F26406 /* NGTextViewTableViewCell.h */,
 				2D45AA63187D9E8500F26406 /* NGTextViewTableViewCell.m */,
 				2D45AA65187D9EB200F26406 /* NGTextViewTableViewCellSubclass.h */,
+				AF8DB63218A0F9ED0072031B /* NGNinjaTableViewGenericSurrogate.h */,
+				AF8DB63318A0F9ED0072031B /* NGNinjaTableViewGenericSurrogate.m */,
+				AF8DB63518A0FD2F0072031B /* NGNinjaTableViewDataSourceSurrogate.h */,
+				AF8DB63618A0FD2F0072031B /* NGNinjaTableViewDataSourceSurrogate.m */,
+				AF8DB63818A0FD800072031B /* NGNinjaTableViewDelegateSurrogate.h */,
+				AF8DB63918A0FD800072031B /* NGNinjaTableViewDelegateSurrogate.m */,
 			);
 			path = NGNinjaTableView;
 			sourceTree = "<group>";
@@ -316,9 +331,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E42799F17F0834B00A532AE /* NGCollectionTableViewCellDemoViewController.m in Sources */,
+				AF8DB63418A0F9ED0072031B /* NGNinjaTableViewGenericSurrogate.m in Sources */,
 				2EE9BE9C167FAA90008C1E11 /* main.m in Sources */,
 				2EE9BEA0167FAA90008C1E11 /* NGAppDelegate.m in Sources */,
 				2EE9BEA9167FAA90008C1E11 /* NGViewController.m in Sources */,
+				AF8DB63718A0FD2F0072031B /* NGNinjaTableViewDataSourceSurrogate.m in Sources */,
 				2EE9BEC0167FAACD008C1E11 /* NGNinjaTableView.m in Sources */,
 				AF1F16D417EB1988000DD38D /* NGNinjaTableView+SectionManagement.m in Sources */,
 				2D0061D7187C599D00DA77CB /* NGTextFieldTableViewCell.m in Sources */,
@@ -329,6 +346,7 @@
 				2EE9BECF167FAC3A008C1E11 /* NGButtonCellDemoViewController.m in Sources */,
 				2EE9BED3167FACB0008C1E11 /* NGButtonCell.m in Sources */,
 				2DAB896C187D94A7007DA484 /* NGTextFieldCellDemoViewController.m in Sources */,
+				AF8DB63A18A0FD800072031B /* NGNinjaTableViewDelegateSurrogate.m in Sources */,
 				2D45AA64187D9E8500F26406 /* NGTextViewTableViewCell.m in Sources */,
 				2E0DE1C01761E4EF0003B217 /* NGResponderTableViewCell.m in Sources */,
 			);

@@ -22,6 +22,8 @@
 
 #import "NGNinjaTableView+SectionManagement.h"
 #import "NGNinjaTableViewSubclass.h"
+#import "NGNinjaTableViewDataSourceSurrogate.h"
+#import "NGNinjaTableViewDelegateSurrogate.h"
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -343,7 +345,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 
 - (NSIndexSet *)allSectionsIndexSet
 {
-    NSInteger sections = [self.delegateAndDataSourceSurrogate.tableViewDataSource numberOfSectionsInTableView:self];
+    NSInteger sections = [self.dataSourceSurrogate.proxiedObject numberOfSectionsInTableView:self];
     NSIndexSet * set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, sections)];
     return set;
 }
@@ -366,15 +368,17 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 @end
 
 
-@implementation NGNinjaTableViewDelegateAndDataSourceSurrogate(SectionManagement)
+@implementation NGNinjaTableViewDataSourceSurrogate(SectionManagment)
 
-#pragma mark - Overriden (UITableViewDelegate or UITableViewDataSource)
+#pragma mark - Overriden UITableViewDataSource
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([self.ninjaTableView isSectionFolded:section] == YES && [self.ninjaTableView isSectionHidden:section] == NO) {
-        if ([self.tableViewDataSource respondsToSelector:@selector(tableView:numberOfRowsInSectionWhenFolded:)] == YES) {
-            return [(id)self.tableViewDataSource tableView:self.ninjaTableView numberOfRowsInSectionWhenFolded:section];
+        if ([self.proxiedObject respondsToSelector:@selector(tableView:numberOfRowsInSectionWhenFolded:)] == YES) {
+            return [(id)self.proxiedObject tableView:self.ninjaTableView numberOfRowsInSectionWhenFolded:section];
         }
     }
     
@@ -382,9 +386,16 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         return 0;
     }
     
-    return [self.tableViewDataSource tableView:tableView numberOfRowsInSection:section];
+    return [self.proxiedObject tableView:tableView numberOfRowsInSection:section];
 }
 
+#pragma clang pop
+
+@end
+
+@implementation NGNinjaTableViewDelegateSurrogate(SectionManagment)
+
+#pragma mark - Overriden UITableViewDelegate
 //
 // We can't require somebody to implement the following methods
 // We even can not say that that the particular method is not implemented (respondsToSelector == NO)
@@ -396,7 +407,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 //
 - (UIView *)tableView:(NGNinjaTableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)] == NO) {
+    if ([self.proxiedObject respondsToSelector:@selector(tableView:viewForHeaderInSection:)] == NO) {
         return nil;
     }
     
@@ -407,7 +418,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     // The reason headeView is registered here is that UITableView does not call -tableView:willDisplayHeaderView:forSection:
     // if delegate does not return a header view that is derived from UITableViewHeaderFooterView
     // however -tableView:didEndDisplayingHeaderView:forSection: is called
-    UIView * headerView = [self.tableViewDelegate tableView:tableView viewForHeaderInSection:section];
+    UIView * headerView = [self.proxiedObject tableView:tableView viewForHeaderInSection:section];
     [self.ninjaTableView registerHeaderView:headerView forSection:section];
     
     if ([headerView respondsToSelector:@selector(willAppearInTableView:atSection:)] == YES)
@@ -418,7 +429,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)] == NO){
+    if ([self.proxiedObject respondsToSelector:@selector(tableView:heightForHeaderInSection:)] == NO){
         return 0;
     }
     
@@ -426,12 +437,12 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         return CGFLOAT_MIN;     // workaround to make section header really invisible, 0 returned here causes a bug - Apple will use "default" section header height instead
     }
     
-    return [self.tableViewDelegate tableView:tableView heightForHeaderInSection:section];
+    return [self.proxiedObject tableView:tableView heightForHeaderInSection:section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)] == NO){
+    if ([self.proxiedObject respondsToSelector:@selector(tableView:heightForFooterInSection:)] == NO){
         return 0;
     }
     
@@ -439,7 +450,7 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
         return CGFLOAT_MIN;     // workaround to make section footer really invisible, 0 returned here causes a bug - Apple will use "default" section footer height instead
     }
     
-    return [self.tableViewDelegate tableView:tableView heightForFooterInSection:section];
+    return [self.proxiedObject tableView:tableView heightForFooterInSection:section];
 }
 
 #pragma mark - UITableViewDelegate
@@ -449,8 +460,8 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
     // headerView is already registered in -tableView:viewForHeaderInSection: method
     //[self.ninjaTableView registerHeaderView:view forSection:section];
     
-    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)] == YES)
-        [self.tableViewDelegate tableView:tableView willDisplayHeaderView:view forSection:section];
+    if ([self.proxiedObject respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)] == YES)
+        [self.proxiedObject tableView:tableView willDisplayHeaderView:view forSection:section];
     
     // header view is alredy notified about appearing in -tableView:viewForHeaderInSection: method
     //    if ([headerView respondsToSelector:@selector(willAppearInTableView:atSection:)] == YES)
@@ -462,8 +473,8 @@ void *allowsUnfoldingOnMultipleSectionsKey = &allowsUnfoldingOnMultipleSectionsK
 {
     [self.ninjaTableView unregisterHeaderView:view fromSection:section];
     
-    if ([self.tableViewDelegate respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)] == YES)
-        [self.tableViewDelegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
+    if ([self.proxiedObject respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)] == YES)
+        [self.proxiedObject tableView:tableView didEndDisplayingHeaderView:view forSection:section];
     
     if ([view respondsToSelector:@selector(willDisappearFromTableView:atSection:)] == YES)
         [ (id <NGNinjaTableViewHeaderFooterViewAppearing>)view willDisappearFromTableView:tableView atSection:section];
