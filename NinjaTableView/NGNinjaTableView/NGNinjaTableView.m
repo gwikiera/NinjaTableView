@@ -23,7 +23,7 @@
 #import "NGNinjaTableView.h"
 
 
-@interface NGNinjaTableViewDelegateAndDataSourceSurrogate()<UITableViewDelegate, UITableViewDataSource>
+@interface NGNinjaTableViewDelegateAndDataSourceSurrogate()
 
 @property (weak, nonatomic) NSObject<UITableViewDelegate>* tableViewDelegate;
 @property (weak, nonatomic) NSObject<UITableViewDataSource>* tableViewDataSource;
@@ -137,13 +137,13 @@
 - (void)setDelegate:(id<UITableViewDelegate>)delegate
 {
     self.delegateAndDataSourceSurrogate.tableViewDelegate = delegate;
-    [super setDelegate:self.delegateAndDataSourceSurrogate];
+    [super setDelegate:(id <UITableViewDelegate>)self.delegateAndDataSourceSurrogate];
 }
 
 - (void)setDataSource:(id<UITableViewDataSource>)dataSource
 {
     self.delegateAndDataSourceSurrogate.tableViewDataSource = dataSource;
-    [super setDataSource:self.delegateAndDataSourceSurrogate];
+    [super setDataSource:(id<UITableViewDataSource>)self.delegateAndDataSourceSurrogate];
 }
 
 #pragma mark - Instance Methods
